@@ -1,4 +1,4 @@
-# oh_my_agents
+# secret_agents
 
 Tier 기반 멀티 에이전트 협업 규칙을 관리하는 문서 중심 저장소입니다.
 
