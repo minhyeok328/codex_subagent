@@ -11,7 +11,7 @@ The first priority is preventing accidental secret tracking and making future Ta
 - Previous Task Report: `docs/reports/TASK1_COMPLETION.md`
 - Base Branch: `main`
 - Root Instructions: `AGENTS.md`
-- Korean Explanation: `AGENTS.ko.md`
+- Teammate Explanation: `AGENTS.ko.md`
 - Workspace: `/Users/jeonjonghyeok/Documents/Final`
 
 Dependencies:
@@ -80,7 +80,7 @@ Stop immediately and escalate to the user when any of the following happens:
 - Local Rules:
   - Templates must match the fields required by root `AGENTS.md`.
   - Review field names should remain English where structured output is needed.
-  - Explanatory placeholder text may be Korean.
+  - Explanatory placeholder text should be English for agent-facing templates.
 - Acceptance Criteria:
   - Completion report template includes timestamp, responsible agent, Spec Alignment, changed files, verification results, and user confirmation items.
   - Subtask template includes context, dependencies, atomic Subtasks, verification commands, and deadlock escape conditions.
@@ -92,7 +92,7 @@ Stop immediately and escalate to the user when any of the following happens:
 
 ## Subtask 2.4: Review Documentation Synchronization
 
-- Purpose: Confirm that root English instructions and Korean explanations still describe the same workflow after Task 2 documentation changes.
+- Purpose: Confirm that root instructions and teammate-facing explanations still describe the same workflow after Task 2 documentation changes.
 - Target Files:
   - `AGENTS.md`
   - `AGENTS.ko.md`

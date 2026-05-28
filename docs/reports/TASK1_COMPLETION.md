@@ -9,7 +9,7 @@
 
 ## Summary
 
-Task 1 established the root agent operating rules for this project and added a Korean teammate-facing explanation file.
+Task 1 established the root agent operating rules for this project and added a teammate-facing explanation file.
 
 The work focused on safe project management before implementation: root/folder-level `AGENTS.md` inheritance, workspace boundaries, Spec -> Task -> Subtask planning, review and security check formats, environment variable safety, handover artifacts, and Task startup rules.
 
@@ -21,10 +21,10 @@ The work focused on safe project management before implementation: root/folder-l
 - [x] Root `AGENTS.md` requires Spec -> Task -> Subtask decomposition before implementation.
 - [x] Root `AGENTS.md` requires review after each Task or Subtask.
 - [x] Root `AGENTS.md` includes a detailed security review checklist.
-- [x] Root `AGENTS.md` defines English review field names with Korean explanatory content.
+- [x] Root `AGENTS.md` defines structured review field names and explanatory content standards.
 - [x] Root `AGENTS.md` defines folder-level inheritance and execution path standards.
 - [x] Root `AGENTS.md` defines Task completion and handover artifact rules.
-- [x] `AGENTS.ko.md` explains the same rules in Korean for teammates.
+- [x] `AGENTS.ko.md` provides teammate-facing context outside the agent-facing `docs/` tree.
 - [x] `AGENTS.md` and `AGENTS.ko.md` include a file synchronization rule.
 
 ## Changed Files
@@ -37,7 +37,7 @@ The work focused on safe project management before implementation: root/folder-l
   - Added a folder-level `AGENTS.md` template.
 
 - `AGENTS.ko.md`
-  - Added Korean teammate-facing explanations for the root agent rules.
+  - Added teammate-facing explanations for the root agent rules.
   - Mirrored the root `AGENTS.md` changes so both files describe the same operating model.
 
 - `docs/reports/TASK1_COMPLETION.md`
