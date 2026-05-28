@@ -103,13 +103,13 @@ Parallel implementation must not begin until relevant contracts are drafted and 
 Use this format when a Task/Subtask document is needed:
 
 ```md
-### Task: [short English or Korean title]
+### Task: [short English title]
 
-- Purpose: 이 작업이 필요한 이유를 한글로 설명합니다.
-- Scope: 이 작업에서 수정할 범위와 제외할 범위를 한글로 설명합니다.
-- Dependencies: 먼저 완료되어야 하는 작업을 적습니다.
-- Acceptance Criteria: 완료로 판단할 수 있는 기준을 한글로 구체적으로 적습니다.
-- Verification: 실행할 테스트, 빌드, 린트, 수동 확인 방법을 적습니다.
+- Purpose: Explain why this work is needed.
+- Scope: Describe what this work may change and what is out of scope.
+- Dependencies: List work that must be completed first.
+- Acceptance Criteria: Define specific conditions that prove completion.
+- Verification: List tests, builds, lint checks, or manual checks to run.
 ```
 
 ## Handover Artifacts

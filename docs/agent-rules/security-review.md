@@ -98,16 +98,15 @@ Run security review when work touches:
 
 ## Security Review Output Format
 
-Field names and severity/category values must be written in English.
-All explanatory content after the colon must be written in Korean.
+Field names, category values, and all explanatory content must be written in English.
 
 ```md
 - Severity: Blocker | Major | Minor | Approved
 - Category: Secrets | Auth | Authorization | Input Validation | Injection | XSS | Session | Data Exposure | File Handling | External API | Dependency | Configuration
-- Evidence: 문제가 확인된 파일, 위치, 동작을 한글로 구체적으로 설명합니다.
-- Risk: 실제 보안 또는 개인정보 위험을 설명합니다.
-- Required Fix: 승인 전에 필요한 수정 사항을 적습니다.
-- Retest: 수정 후 다시 확인할 방법을 적습니다.
+- Evidence: Describe the affected file, location, behavior, input, or command output.
+- Risk: Explain the practical security or privacy impact.
+- Required Fix: Describe the exact change required before approval.
+- Retest: Describe how to verify the fix.
 ```
 
 If a Blocker security issue is found, stop and escalate immediately.

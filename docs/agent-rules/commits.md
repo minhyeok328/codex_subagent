@@ -36,8 +36,8 @@ https://www.conventionalcommits.org/en/v1.0.0/
 ```md
 feat(auth): add session refresh flow
 
-세션 만료 시 refresh token으로 로그인 상태를 갱신하는 흐름을 추가합니다.
-검증: auth API test와 세션 만료 수동 시나리오를 확인했습니다.
+Add refresh-token handling when a session expires.
+Verification: ran auth API tests and manually checked the expired-session flow.
 
 Refs: #42
 ```
