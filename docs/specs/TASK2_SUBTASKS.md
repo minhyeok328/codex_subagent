@@ -11,7 +11,7 @@ The first priority is preventing accidental secret tracking and making future Ta
 - Previous Task Report: `docs/reports/TASK1_COMPLETION.md`
 - Base Branch: `main`
 - Root Instructions: `AGENTS.md`
-- Teammate Explanation: `AGENTS.ko.md`
+- Korean Onboarding Guide: `docs/onboarding/USER_GUIDE.ko.md`
 - Workspace: `/Users/jeonjonghyeok/Documents/Final`
 
 Dependencies:
@@ -92,24 +92,24 @@ Stop immediately and escalate to the user when any of the following happens:
 
 ## Subtask 2.4: Review Documentation Synchronization
 
-- Purpose: Confirm that root instructions and teammate-facing explanations still describe the same workflow after Task 2 documentation changes.
+- Purpose: Confirm that root instructions and Korean onboarding guidance still describe the same workflow after Task 2 documentation changes.
 - Target Files:
   - `AGENTS.md`
-  - `AGENTS.ko.md`
+  - `docs/onboarding/USER_GUIDE.ko.md`
   - `docs/README.md`
   - `docs/templates/TASK_COMPLETION_TEMPLATE.md`
   - `docs/templates/TASK_SUBTASKS_TEMPLATE.md`
 - Local Rules:
   - Do not rewrite sections that do not need changes.
-  - If `AGENTS.md` changes, update `AGENTS.ko.md` in the same Subtask.
+  - If `AGENTS.md` changes affect onboarding guidance, update `docs/onboarding/USER_GUIDE.ko.md` in the same Subtask.
   - Keep changes scoped to documentation consistency.
 - Acceptance Criteria:
-  - `AGENTS.md` and `AGENTS.ko.md` remain synchronized.
+  - `AGENTS.md` and `docs/onboarding/USER_GUIDE.ko.md` remain directionally aligned.
   - No root security, workflow, or Workspace Boundary rule is weakened.
   - Folder-level inheritance remains clearly documented.
 - Verification Commands:
-  - `rg -n 'Task Startup Rule|Task Completion & Handover Rule|Environment Variable Safety|File Synchronization Rule' AGENTS.md AGENTS.ko.md`
-  - `rg -n 'T[O]DO|T[B]D|F[I]XME' AGENTS.md AGENTS.ko.md docs`
+  - `rg -n 'Task Startup Rule|Task Completion & Handover Rule|Environment Variable Safety|File Synchronization Rule' AGENTS.md docs/onboarding/USER_GUIDE.ko.md`
+  - `rg -n 'T[O]DO|T[B]D|F[I]XME' AGENTS.md docs/onboarding/USER_GUIDE.ko.md docs`
   - `git status --short`
 
 ## Subtask 2.5: Complete Task 2 Handover
