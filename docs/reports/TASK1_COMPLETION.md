@@ -9,7 +9,7 @@
 
 ## Summary
 
-Task 1 established the root agent operating rules for this project and added a teammate-facing explanation file.
+Task 1 established the root agent operating rules for this project.
 
 The work focused on safe project management before implementation: root/folder-level `AGENTS.md` inheritance, workspace boundaries, Spec -> Task -> Subtask planning, review and security check formats, environment variable safety, handover artifacts, and Task startup rules.
 
@@ -24,8 +24,7 @@ The work focused on safe project management before implementation: root/folder-l
 - [x] Root `AGENTS.md` defines structured review field names and explanatory content standards.
 - [x] Root `AGENTS.md` defines folder-level inheritance and execution path standards.
 - [x] Root `AGENTS.md` defines Task completion and handover artifact rules.
-- [x] `AGENTS.ko.md` provides teammate-facing context outside the agent-facing `docs/` tree.
-- [x] `AGENTS.md` and `AGENTS.ko.md` include a file synchronization rule.
+- [x] Korean teammate-facing context now lives in `docs/onboarding/USER_GUIDE.ko.md`.
 
 ## Changed Files
 
@@ -36,10 +35,6 @@ The work focused on safe project management before implementation: root/folder-l
   - Added Task Completion & Handover Rule and Task Startup Rule.
   - Added a folder-level `AGENTS.md` template.
 
-- `AGENTS.ko.md`
-  - Added teammate-facing explanations for the root agent rules.
-  - Mirrored the root `AGENTS.md` changes so both files describe the same operating model.
-
 - `docs/reports/TASK1_COMPLETION.md`
   - Created this user-facing Task 1 completion report.
 
@@ -49,11 +44,11 @@ The work focused on safe project management before implementation: root/folder-l
 ## Verification Results
 
 - Placeholder scan:
-  - Command: `rg -n 'T[O]DO|T[B]D|F[I]XME' AGENTS.md AGENTS.ko.md`
+  - Command: `rg -n 'T[O]DO|T[B]D|F[I]XME' AGENTS.md docs/onboarding/USER_GUIDE.ko.md`
   - Result: No placeholder matches found.
 
 - Markdown code fence scan:
-  - Command: `rg -n '```|````' AGENTS.md AGENTS.ko.md`
+  - Command: `rg -n '```|````' AGENTS.md docs/onboarding/USER_GUIDE.ko.md`
   - Result: Code fence locations were found and visually checked for matching open/close pairs.
 
 - Section existence scan:
