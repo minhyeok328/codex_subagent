@@ -60,6 +60,10 @@ Workspace status:
 
 ## 3) Context Budget Gate
 
+- [ ] User explicitly requested subagents, delegation, or parallel agent work before any Superpowers `spawn_agent` call.
+- [ ] Tier 0/1 automatic delegation is not being used.
+- [ ] Orchestrator has selected the immediate local critical-path task.
+- [ ] Delegated subtasks are non-overlapping and can run in parallel.
 - [ ] Subagents will receive compact task cards instead of full planning packets.
 - [ ] Required rule files are selected by role.
 - [ ] Subagent launch and integration rules are selected: `docs/agent-rules/subagent-execution.md`.
@@ -174,7 +178,7 @@ Verification commands:
 
 - [ ] Sync checklist selected: `docs/coordination/AGENT_SYNC_CHECKLIST.md`
 - [ ] Integration review template selected: `docs/templates/INTEGRATION_REVIEW_TEMPLATE.md`
-- [ ] Orchestrator integration step selected: `docs/agent-rules/subagent-execution.md` section 8.
+- [ ] Orchestrator integration step selected: `docs/agent-rules/subagent-execution.md` section 9.
 - [ ] Sync points are defined before implementation starts.
 - [ ] Drift handling rule is understood: update contracts first, then adjust Subtasks.
 - [ ] Deadlock escape conditions are understood.
