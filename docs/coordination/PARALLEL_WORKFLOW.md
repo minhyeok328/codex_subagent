@@ -22,13 +22,17 @@ Parallel implementation may start only when:
 - Subagent launch rules are selected:
   - `docs/agent-rules/subagent-execution.md`
 - Relevant contract docs exist and are reviewed:
-  - `docs/contracts/*`
+  - shell-level reference or simulation contracts: `docs/contracts/*`
+  - app-scoped frozen contracts: `workspaces/<app-slug>/.agent/contracts/*`
 - Subtasks are decomposed so that:
   - each Subtask maps to exactly one domain agent as primary owner
   - cross-domain changes are expressed as contract updates + separate owned subtasks
 - A sync checklist is selected:
   - `docs/coordination/AGENT_SYNC_CHECKLIST.md`
 - "Parallel Start Minimum" sections in relevant contract docs are filled and frozen for the active Task.
+
+For app-scoped work, prefer freezing task-specific contracts in the active app workspace.
+`docs/contracts/` remains the shell-level reference and simulation contract set unless the Task explicitly declares it as the active contract location.
 
 ## Roles in Parallel Mode
 
@@ -46,6 +50,7 @@ Parallel implementation may start only when:
 ### Phase 0: Contract Draft
 
 - Confirm active workspace metadata when work targets an app under `workspaces/`.
+- Select the active contract location before drafting.
 - Update contract(s) first.
 - Mark unknowns as **Needs Confirmation** (do not guess).
 
