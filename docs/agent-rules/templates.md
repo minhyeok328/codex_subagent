@@ -4,6 +4,11 @@ Use this file when creating folder-level `AGENTS.md` files.
 
 Folder-level rules must specialize local ownership and verification. They must not weaken root `AGENTS.md`.
 
+For workspace-scoped app work, prefer:
+
+- `docs/templates/WORKSPACE_PROFILE.template.md` for app-local execution context.
+- `docs/templates/SUBAGENT_TASK_CARD.template.md` for compact subagent launches.
+
 ## Generic Folder-Level AGENTS.md Template
 
 ```md
