@@ -22,6 +22,8 @@ Use this checklist at every planned sync point when parallel work is active.
 
 ## 3) Ownership & Scope
 
+- [ ] Each subagent returned `Status: Completed`, `Blocked`, or `Needs Confirmation`
+- [ ] Orchestrator checked returned changed files against each task card
 - [ ] Backend changes are confined to backend-owned files
 - [ ] DB changes are confined to migration/schema-owned files
 - [ ] Frontend changes are confined to frontend-owned files
@@ -57,3 +59,4 @@ If a command is not configured yet, record "Not applicable yet" with reason and 
 
 - [ ] If any drift exists, contract is updated first
 - [ ] Subtasks are re-split if drift indicates coupling was underestimated
+- [ ] Any `Needs Confirmation` item from subagent output is resolved before final handover
