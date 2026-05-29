@@ -1,7 +1,7 @@
 # AGENTS.md 한국어 설명
 
 이 문서는 루트 [AGENTS.md](./AGENTS.md)를 빠르게 이해하기 위한 팀원용 한국어 설명입니다.
-에이전트가 반드시 따르는 운영 기준의 원문은 항상 [AGENTS.md](./AGENTS.md)입니다.
+에이전트가 반드시 따라야 하는 운영 기준 원문은 항상 [AGENTS.md](./AGENTS.md)입니다.
 
 ## 운영 방향
 
@@ -10,7 +10,7 @@
 
 핵심 원칙은 다음과 같습니다.
 
-- 항상 현재 프로젝트 workspace 안에서만 작업합니다.
+- 현재 프로젝트 workspace 안에서만 작업합니다.
 - 관련 없는 파일이나 동작을 바꾸지 않습니다.
 - 기존 패턴을 우선하고, 불필요한 추상화를 만들지 않습니다.
 - 실제 secret, API token, credential, `.env` 값을 소스나 Git에 넣지 않습니다.
@@ -29,21 +29,43 @@
 
 판단이 애매하면 더 높은 Tier를 선택합니다.
 
-## On-demand 규칙
+## On-Demand 규칙
 
 상세 규칙은 [docs/agent-rules/](./docs/agent-rules/) 아래에 나뉘어 있습니다.
 에이전트는 현재 작업에 필요한 파일만 읽습니다.
 
 - [workflow.md](./docs/agent-rules/workflow.md): Tier별 작업 흐름, Spec/Task/Handover 형식
 - [roles.md](./docs/agent-rules/roles.md): Spec, Task, Implementation, Review 및 확장 역할
+- [context-budget.md](./docs/agent-rules/context-budget.md): subagent에 필요한 최소 규칙과 작업 카드만 전달하는 규칙
+- [workspaces.md](./docs/agent-rules/workspaces.md): active workspace, profile, allowed scope, forbidden path 규칙
 - [review.md](./docs/agent-rules/review.md): 리뷰 입력 조건과 출력 형식
 - [security-review.md](./docs/agent-rules/security-review.md): 보안 트리거, 체크리스트, 보안 리뷰 형식
 - [commits.md](./docs/agent-rules/commits.md): Conventional Commits와 staging 안전 규칙
 - [templates.md](./docs/agent-rules/templates.md): 폴더별 `AGENTS.md` 템플릿
 
+## Workspace / Context Budget
+
+`secret_agents`를 상위 운영 셸로 두고 앱을 `workspaces/<app-slug>` 아래에서 작업할 때는 active workspace를 먼저 선언합니다.
+
+기본 흐름:
+
+```text
+Active workspace: workspaces/<app-slug>
+Workspace profile: workspaces/<app-slug>/.agent/profile.md
+```
+
+구현 subagent는 active workspace와 assigned write scope 안에서만 작업합니다.
+다른 `workspaces/*` 앱, `.git/**`, 실제 `.env` 파일, credentials, generated secrets는 건드리지 않습니다.
+
+subagent에는 전체 문서를 모두 붙여 넣지 않고, 가능한 한 [SUBAGENT_TASK_CARD.template.md](./docs/templates/SUBAGENT_TASK_CARD.template.md)를 사용합니다.
+앱별 실행 컨텍스트는 [WORKSPACE_PROFILE.template.md](./docs/templates/WORKSPACE_PROFILE.template.md)를 기준으로 작성합니다.
+
+구현 subagent는 기본적으로 Git 명령을 실행하지 않습니다.
+commit, branch, push, PR 작업은 별도 Git 역할에서 `commits.md`를 읽고 처리합니다.
+
 ## 병렬 작업
 
-Tier 4 병렬 작업은 “동시에 마음대로 코딩”이 아니라 contract-first 기반의 독립 구현입니다.
+Tier 4 병렬 작업은 수동으로 동시에 코딩하는 흐름이 아니라 contract-first 기반의 독립 구현입니다.
 
 기본 흐름은 다음과 같습니다.
 
@@ -55,7 +77,7 @@ Tier 4 병렬 작업은 “동시에 마음대로 코딩”이 아니라 contrac
 6. 완료 보고서와 다음 handover 문서를 남깁니다.
 
 병렬 작업을 시작하기 전에는 [TIER4_START_CHECKLIST.md](./docs/templates/TIER4_START_CHECKLIST.md)를 사용합니다.
-subagent를 실행할 때는 [SUBAGENT_PROMPTS.md](./docs/templates/SUBAGENT_PROMPTS.md)의 역할별 프롬프트를 사용합니다.
+subagent 실행에는 [SUBAGENT_TASK_CARD.template.md](./docs/templates/SUBAGENT_TASK_CARD.template.md) 또는 [SUBAGENT_PROMPTS.md](./docs/templates/SUBAGENT_PROMPTS.md)를 사용합니다.
 
 ## 보안 리뷰가 필요한 경우
 
@@ -79,4 +101,3 @@ Blocker 보안 이슈가 발견되면 즉시 멈추고 사용자에게 보고해
 - 관련 없는 동작이나 파일을 바꾸지 않았는지 확인합니다.
 - 필요한 검증을 실행하거나, 실행하지 못한 이유를 설명합니다.
 - 변경 파일, 검증 결과, 가정, 남은 위험을 보고합니다.
-
