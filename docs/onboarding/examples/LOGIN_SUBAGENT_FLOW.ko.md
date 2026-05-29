@@ -1,6 +1,6 @@
 # 로그인 UI Subagent 작업 예시
 
-이 문서는 `secret_agents`에서 subagent 작업이 실제로 어떤 모양으로 흘러가는지 보여주는 예시입니다.
+이 문서는 `codex_subagent`에서 subagent 작업이 실제로 어떤 모양으로 흘러가는지 보여주는 예시입니다.
 예시 앱은 `workspaces/my-app`에 있다고 가정합니다.
 
 ## 1. 사용자 요청
