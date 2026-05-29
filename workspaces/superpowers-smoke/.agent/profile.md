@@ -5,7 +5,7 @@
 - App name: Superpowers Smoke
 - App slug: superpowers-smoke
 - Active root: `workspaces/superpowers-smoke`
-- Profile owner: secret_agents smoke test
+- Profile owner: codex_subagent smoke test
 - Last reviewed: 2026-05-29
 
 ## Stack Snapshot
@@ -67,7 +67,7 @@ Generated or heavy paths to avoid:
 This profile only records Git context. Load Git rules separately before commit, branch, push, or PR work.
 
 - Git mode: shell-owned
-- Git root: `C:\MinHyeok\secret_agents`
+- Git root: `C:\MinHyeok\codex_subagent`
 - Git steward: not required
 
 ## Agent Notes
