@@ -99,6 +99,8 @@ If a Blocker security issue is found, stop and escalate to the user.
 Commits must follow Conventional Commits 1.0.0.
 
 Before committing, load [docs/agent-rules/commits.md](./docs/agent-rules/commits.md).
+Use the `commit-workflow` skill for staging, splitting, rewriting, writing commit messages, and creating commits.
+Implementation agents must not perform Git work unless explicitly assigned Git Steward responsibilities.
 
 ## Progress and Deadlock
 
