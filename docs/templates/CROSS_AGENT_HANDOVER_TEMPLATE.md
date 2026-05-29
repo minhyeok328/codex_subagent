@@ -8,6 +8,8 @@ Use this handover when passing work across domain agents during parallel executi
 - Date/time:
 - From Agent:
 - To Agent:
+- Routed via Orchestrator / Integration Coordinator: yes/no
+- Direct worker-to-worker communication approved: yes/no/not applicable
 - Active workspace:
 - Workspace profile:
 - Contract references:
@@ -27,6 +29,7 @@ Use this handover when passing work across domain agents during parallel executi
 - Intended behavior:
 - Edge cases:
 - "Needs Confirmation" items:
+- Contract drift or shared-interface concerns:
 - Follow-up required:
 - Non-obvious constraints:
 
