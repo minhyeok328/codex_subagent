@@ -1,24 +1,23 @@
-# secret_agents
+# codex_subagent
 
-`secret_agents`는 Codex와 subagent가 사용자 Git 프로젝트를 안전하게 작업하도록 돕는 운영 셸입니다.
-제품 앱 자체가 아니라, 앱을 넣고 작업 경계와 검증 흐름을 정하는 문서/규칙 중심의 workspace입니다.
+`codex_subagent`는 Codex와 subagent가 사용자 Git 프로젝트를 안전하게 다루도록 돕는 Codex orchestration subagent system입니다.
 
-처음 사용하는 경우 먼저 [사용 설명서](./docs/onboarding/USER_GUIDE.ko.md)를 읽어 주세요.
+제품 앱 자체가 아니라, 실제 앱을 `workspaces/` 아래에 두고 Codex가 무엇을 읽고, 어디까지 수정하고, 어떤 기준으로 검증할지 정하는 운영 셸입니다. 1차 배포 기준으로는 가장 기본적인 뼈대만 담고 있으며, 이후 프로젝트별 profile, contract, template, agent rule, skill을 추가하면서 확장할 수 있도록 설계되어 있습니다.
 
-## 빠른 시작
+처음 사용하는 경우에는 [사용 설명서](./docs/onboarding/USER_GUIDE.ko.md)를 먼저 읽어 주세요.
 
-1. 실제 앱 repo를 `workspaces/<app-slug>/` 아래에 둡니다.
-2. [사용 설명서](./docs/onboarding/USER_GUIDE.ko.md)를 읽고 active workspace를 정합니다.
-3. `docs/templates/WORKSPACE_PROFILE.template.md`를 참고해 `workspaces/<app-slug>/.agent/profile.md`를 만듭니다.
-4. Codex에게 작업을 요청할 때 `Active workspace: workspaces/<app-slug>`를 함께 적습니다.
-5. 대부분의 작업은 Default Workflow로 진행하고, 기획부터 개발까지 맡길 때만 Full Delivery Workflow를 요청합니다.
+## 이 시스템이 하는 일
 
-## 핵심 모델
+- 하나의 작업에서 사용할 active workspace를 명확히 선언합니다.
+- Codex와 subagent가 수정할 수 있는 경계와 금지 경로를 분리합니다.
+- Default, Formal Planning, Full Delivery workflow를 구분해 작업 크기에 맞는 절차를 고릅니다.
+- subagent를 쓸 때 task card, handover, review, 검증 기준을 남기도록 돕습니다.
+- 구현 작업과 Git 작업을 분리해 잘못된 workspace에 commit하는 실수를 줄입니다.
 
-일반적인 구조는 다음과 같습니다.
+## 기본 구조
 
 ```text
-secret_agents/                  # 운영 셸
+codex_subagent/
 +-- AGENTS.md                    # 항상 적용되는 운영 규칙
 +-- docs/                        # agent 규칙, 템플릿, 온보딩 문서
 +-- scripts/                     # 문서 검증 등 보조 스크립트
@@ -26,70 +25,37 @@ secret_agents/                  # 운영 셸
     +-- my-app/                  # 실제 사용자 Git 프로젝트
 ```
 
-작업을 시작할 때는 하나의 active workspace를 선언합니다.
+작업을 시작할 때는 보통 다음처럼 하나의 active workspace를 선언합니다.
 
 ```text
 Active workspace: workspaces/<app-slug>
 ```
 
-agent는 이 active workspace와 배정된 write scope 안에서만 구현해야 합니다.
-다른 `workspaces/*` 앱, 실제 `.env` 파일, credential, `.git/**`은 명시적 배정 없이 건드리지 않습니다.
+## 1차 배포 범위
 
-## 기본 설정
+이번 버전은 완성된 제품 플랫폼이 아니라, Codex 기반 작업을 안전하게 운영하기 위한 최소 시스템입니다.
 
-1. 이 저장소를 프로젝트 루트로 엽니다.
-2. [workspaces 안내](./workspaces/README.md)를 확인합니다.
-3. subagent가 필요하면 `docs/templates/SUBAGENT_TASK_CARD.template.md`로 범위를 작게 고정합니다.
-4. Git 작업은 구현 agent가 아니라 Git Steward 흐름에서 처리합니다.
+- root `AGENTS.md`로 항상 적용되는 안전 규칙을 둡니다.
+- `docs/agent-rules/`에 workflow, workspace, subagent, review, security, commit 규칙을 분리합니다.
+- `docs/templates/`에 workspace profile, subagent task card, handover, integration review 템플릿을 둡니다.
+- `docs/onboarding/USER_GUIDE.ko.md`에 처음 사용하는 흐름을 정리합니다.
+- `scripts/check-docs.ps1`로 문서 참조와 필수 필드를 검증합니다.
 
-## 주요 문서
+## 확장 방향
 
-| 문서 | 목적 |
-| --- | --- |
-| [AGENTS.md](./AGENTS.md) | 에이전트가 항상 따라야 하는 운영 원문 |
-| [USER_GUIDE.ko.md](./docs/onboarding/USER_GUIDE.ko.md) | 처음 사용자를 위한 단순 사용 설명서 |
-| [workflow.md](./docs/agent-rules/workflow.md) | Formal Planning, Full Delivery workflow, Spec/Task/Handover 형식 |
-| [workspaces.md](./docs/agent-rules/workspaces.md) | active workspace와 작업 경계 |
-| [context-budget.md](./docs/agent-rules/context-budget.md) | subagent context를 작게 유지하는 규칙 |
-| [subagent-execution.md](./docs/agent-rules/subagent-execution.md) | subagent 호출, 중단, 출력, 통합 절차 |
-| [commits.md](./docs/agent-rules/commits.md) | Git Steward와 commit-workflow 규칙 |
-| [commit-workflow skill](./docs/skills/commit-workflow/SKILL.md) | 전역 skill로 설치할 수 있는 commit workflow 원본 |
+`codex_subagent`는 기본 운영 셸이므로 실제 프로젝트에 맞게 점진적으로 확장할 수 있습니다.
 
-## 주요 템플릿
+- 앱별 `workspaces/<app-slug>/.agent/profile.md` 추가
+- 앱별 contract와 검증 명령 추가
+- 반복되는 작업을 위한 task card 템플릿 추가
+- review, security review, Git Steward 절차 강화
+- 프로젝트에 맞는 Codex skill 또는 automation 추가
 
-| 템플릿 | 용도 |
-| --- | --- |
-| [WORKSPACE_PROFILE.template.md](./docs/templates/WORKSPACE_PROFILE.template.md) | 앱별 실행 profile 작성 |
-| [SUBAGENT_TASK_CARD.template.md](./docs/templates/SUBAGENT_TASK_CARD.template.md) | subagent에게 넘길 작은 작업 카드 |
-| [FULL_DELIVERY_START_CHECKLIST.md](./docs/templates/FULL_DELIVERY_START_CHECKLIST.md) | Full Delivery 병렬 multi-agent 작업 시작 전 gate |
-| [CROSS_AGENT_HANDOVER_TEMPLATE.md](./docs/templates/CROSS_AGENT_HANDOVER_TEMPLATE.md) | agent 간 handover |
+## 필수 참조
 
-## 문서 검증
+- workspace 배치 규칙은 [workspaces 안내](./workspaces/README.md)를 참고합니다.
+- subagent 실행 도구인 `spawn_agent`는 기본 경로가 아니며, 사용자가 subagent, delegation, 또는 parallel agent work를 명시적으로 요청했을 때만 사용합니다.
+- Git 작업은 [commit-workflow skill](./docs/skills/commit-workflow/SKILL.md)과 Git Steward 규칙을 따릅니다.
+- 전역 skill 재설치가 필요하면 `scripts/install-commit-workflow.ps1`을 사용합니다.
 
-문서 체계가 깨지지 않았는지 확인하려면 다음 명령을 실행합니다.
-
-```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\check-docs.ps1
-```
-
-이 검증은 필수 문서, 핵심 참조, task card 필드, Git Steward 규칙, Markdown trailing whitespace를 확인합니다.
-
-## Skill 설치
-
-`commit-workflow` 전역 skill은 repo 안의 원본을 기준으로 설치합니다.
-
-```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\install-commit-workflow.ps1
-```
-
-## 운영 원칙 요약
-
-- 일반 작업은 Default Workflow로 가볍게 처리합니다.
-- Spec, 설계, 구현 계획만 요청한 작업은 Formal Planning Workflow로 처리합니다.
-- 처음 기획부터 Spec 작성과 개발까지 맡기는 작업에는 Full Delivery Workflow를 사용합니다.
-- Full Delivery 앱 구현 작업은 active workspace와 검증 명령을 명시합니다.
-- subagent와 Superpowers `spawn_agent`는 기본 실행 경로가 아니며, 사용자가 subagent, delegation, 또는 parallel agent work를 명시적으로 요청했을 때만 사용합니다.
-- subagent는 스스로 workspace, write scope, Git 동작, 검증 방식을 정하지 않습니다.
-- 구현 subagent는 Git 명령을 실행하지 않습니다.
-- Git 작업은 [commit-workflow skill](./docs/skills/commit-workflow/SKILL.md)과 Git Steward 규칙을 사용합니다.
-- 보안, auth, DB, 파일, 외부 API, dependency, config 작업은 Security Review Agent 조건을 확인합니다.
+운영 규칙의 원문은 [AGENTS.md](./AGENTS.md)이고, 실사용 절차는 [사용 설명서](./docs/onboarding/USER_GUIDE.ko.md)에 정리되어 있습니다.
