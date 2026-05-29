@@ -142,3 +142,19 @@ Next-task instruction sheet should include:
 When starting from an existing numbered Task, read the relevant `docs/specs/TASK[number]_SUBTASKS.md` first and summarize the first Subtask's purpose and target files to the user.
 
 For Tier 1 and Tier 2 work that is not part of an existing numbered Task sequence, a short scope note is sufficient.
+
+## Active Workspace Metadata
+
+When `secret_agents` is used as a shell for an app under `workspaces/`, Tier 2 or higher implementation work must include:
+
+```md
+Active workspace:
+Workspace profile:
+Contract location:
+Allowed write scope:
+Forbidden paths:
+Verification:
+Git steward:
+```
+
+Use `docs/agent-rules/workspaces.md` for workspace activation rules and `docs/agent-rules/context-budget.md` for compact subagent context loading.
