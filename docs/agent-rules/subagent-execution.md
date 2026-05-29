@@ -1,0 +1,219 @@
+# Subagent Execution Rules
+
+Use this file when the main Codex session prepares, launches, receives, or integrates subagent work.
+
+Subagents do not choose their own workspace, write scope, Git behavior, or verification strategy.
+The main Codex session acts as the orchestrator and must launch subagents with a bounded task card.
+If boundaries are unclear, the subagent stops and reports `Needs Confirmation` instead of guessing.
+
+## Purpose
+
+This protocol defines how subagents are called and integrated.
+It keeps subagent work scoped, reviewable, and cheap enough to use deliberately.
+
+Use it for:
+
+- Tier 4 parallel work
+- domain-owned implementation subtasks
+- review, security review, integration, or Git work that should be separated from implementation
+- any task where a compact task card is safer than broad shared context
+
+Do not use subagents just because they are available.
+If the main Codex session can safely complete a Tier 0 or simple Tier 1 task with less context, do that instead.
+
+## 1. Orchestrator Responsibilities
+
+The main Codex session is the orchestrator.
+Before launching a subagent, it must:
+
+- classify the task Tier
+- confirm the active workspace when app-scoped
+- read the workspace profile when available
+- identify allowed write scope and forbidden paths
+- decide whether contracts are required
+- decide whether security review is triggered
+- decide whether Git Steward work is required
+- create or fill a Subagent Task Card
+- keep the user informed during long-running work
+
+The orchestrator remains responsible for final integration.
+Subagent output is evidence, not automatic approval.
+
+## 2. When To Use A Subagent
+
+Use a subagent when:
+
+- Tier 4 parallel work is active
+- a domain-owned Subtask can be isolated
+- review, security review, integration, or Git work should be separated from implementation
+- context can be reduced by sending a focused task card
+- a bounded second pass is useful for correctness, security, or scope control
+
+Do not use a subagent when:
+
+- the task is Tier 0 or a simple Tier 1 edit
+- the main Codex session can safely complete the work with less context
+- the active workspace or write scope is unclear
+- the subagent would need broad repo-wide judgment without a bounded mission
+- the expected output cannot be reviewed or verified
+
+## 3. Pre-Launch Gate
+
+A subagent may start only when:
+
+- active workspace is declared or marked not applicable
+- role is selected
+- task card is filled
+- allowed write scope is explicit
+- forbidden paths are explicit
+- verification command is defined or marked `Needs Confirmation`
+- stop conditions are included
+- Git behavior is explicit
+
+Implementation agents must not run Git commands, commit, branch, push, or modify Git metadata.
+
+For Tier 4 work, also confirm:
+
+- relevant contracts are reviewed or marked `Needs Confirmation`
+- ownership overlap has been checked
+- security trigger decision is recorded
+- sync or review path is known
+
+If any required gate is missing, do not launch the subagent.
+Fix the task card, update the profile or contract, or ask the user for clarification.
+
+## 4. Task Card Rules
+
+Use:
+
+```text
+docs/templates/SUBAGENT_TASK_CARD.template.md
+```
+
+The task card must be self-contained enough that the subagent can act without reading unrelated planning docs.
+
+Required fields:
+
+- active workspace
+- workspace profile
+- task or Subtask reference
+- role
+- required read context
+- allowed write scope
+- read-only context
+- forbidden paths
+- mission
+- acceptance criteria
+- verification
+- stop conditions
+- output required
+
+Do not paste full rule files into the card unless the subagent must act on exact wording.
+Summarize the relevant rule in 5-10 lines and cite the file path.
+
+The task card must not expand the root workspace boundary or weaken any rule from `AGENTS.md`.
+
+## 5. Role-Specific Inputs
+
+Add role-specific input to the task card.
+
+Implementation Agent:
+
+- owned files or folders
+- acceptance criteria
+- verification commands
+- contract references if relevant
+- explicit out-of-scope files
+
+Review Agent:
+
+- changed file list or diff summary
+- original task card
+- implementation output
+- acceptance criteria
+- verification results
+
+Security Review Agent:
+
+- security triggers
+- changed files
+- relevant checklist sections
+- implementation output
+- secret-handling notes
+
+Integration Coordinator:
+
+- active contracts
+- ownership map
+- sync checklist
+- dependency or drift notes
+
+Git Steward Agent:
+
+- changed file list
+- intended commit target
+- shell/app repo distinction
+- commit rules path
+- staging or PR intent
+
+## 6. Stop Conditions
+
+A subagent must stop and report `Needs Confirmation` when:
+
+- the assigned write scope is too broad or missing
+- required files are outside the active workspace
+- another workspace must be touched
+- contract behavior is unclear
+- verification command is missing or unsafe to infer
+- security trigger is discovered but no Security Review Agent is assigned
+- Git work is required but the subagent is not Git Steward
+- real secrets or environment files appear necessary
+- the task requires weakening root or workspace rules
+
+Stopping is the correct behavior when boundaries are unclear.
+Do not broaden scope silently.
+
+## 7. Required Output
+
+Every subagent must return a compact, reviewable output.
+
+Required fields:
+
+```md
+- Status: Completed | Blocked | Needs Confirmation
+- Changed files:
+- Summary:
+- Verification:
+- Contract impact:
+- Security impact:
+- Assumptions:
+- Follow-up required:
+```
+
+Review and Security Review Agents may use their role-specific formats, but they must still include a clear status.
+
+If no files changed, write `Changed files: none`.
+If verification was not run, explain why and name the owner or condition needed to run it.
+
+## 8. Integration After Return
+
+After a subagent returns, the orchestrator must:
+
+1. Check the returned status.
+2. Confirm changed files stayed inside the allowed scope.
+3. Confirm no forbidden paths, other workspaces, `.git/**`, real env files, or secrets were touched.
+4. Compare the output against acceptance criteria.
+5. Review verification commands and results.
+6. Decide whether Review Agent is needed.
+7. Decide whether Security Review Agent is needed.
+8. Update contracts, task docs, or handover notes if required.
+9. Record unresolved `Needs Confirmation` items.
+10. Avoid commit, branch, push, or PR work unless acting through Git Steward rules.
+
+For Tier 4 work, run the relevant sync checklist before final handover:
+
+```text
+docs/coordination/AGENT_SYNC_CHECKLIST.md
+```
+
+The orchestrator must not treat subagent completion as final completion until scope, verification, and review requirements are satisfied.
