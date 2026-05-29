@@ -32,10 +32,11 @@ agent는 이 active workspace와 배정된 write scope 안에서만 구현해야
 1. 이 저장소를 프로젝트 루트로 엽니다.
 2. [사용 설명서](./docs/onboarding/USER_GUIDE.ko.md)를 읽습니다.
 3. 실제 앱 repo를 `workspaces/<app-slug>/` 아래에 clone하거나 복사합니다.
-4. `docs/templates/WORKSPACE_PROFILE.template.md`를 참고해 앱별 profile을 만듭니다.
-5. 작업 요청이나 Task 문서에 `Active workspace: workspaces/<app-slug>`를 적습니다.
-6. subagent가 필요하면 `docs/templates/SUBAGENT_TASK_CARD.template.md`로 범위를 작게 고정합니다.
-7. Git 작업은 구현 agent가 아니라 Git Steward 흐름에서 처리합니다.
+4. [workspaces 안내](./workspaces/README.md)를 확인합니다.
+5. `docs/templates/WORKSPACE_PROFILE.template.md`를 참고해 앱별 profile을 만듭니다.
+6. 작업 요청이나 Task 문서에 `Active workspace: workspaces/<app-slug>`를 적습니다.
+7. subagent가 필요하면 `docs/templates/SUBAGENT_TASK_CARD.template.md`로 범위를 작게 고정합니다.
+8. Git 작업은 구현 agent가 아니라 Git Steward 흐름에서 처리합니다.
 
 ## 주요 문서
 
@@ -73,6 +74,8 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\check-docs.ps1
 
 - 작업에는 가장 가벼우면서도 안전한 Tier를 선택합니다.
 - Tier 2 이상 앱 구현 작업은 active workspace와 검증 명령을 명시합니다.
+- subagent는 기본 실행 경로가 아니며, Tier 0/1 작업에는 보통 호출하지 않습니다.
+- Superpowers `spawn_agent`는 사용자가 subagent, delegation, parallel agent work를 명시적으로 요청했을 때만 사용합니다.
 - subagent는 스스로 workspace, write scope, Git 동작, 검증 방식을 정하지 않습니다.
 - 구현 subagent는 Git 명령을 실행하지 않습니다.
 - Git 작업은 `commit-workflow` skill과 Git Steward 규칙을 사용합니다.
