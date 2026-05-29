@@ -72,7 +72,6 @@ Agents must not read or modify:
 Root governance files are normally read-only for app implementation:
 
 - `AGENTS.md`
-- `AGENTS.ko.md`
 - `docs/agent-rules/**`
 - `docs/templates/**`
 - `docs/coordination/**`
