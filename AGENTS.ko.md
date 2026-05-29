@@ -37,6 +37,7 @@
 - [workflow.md](./docs/agent-rules/workflow.md): Tier별 작업 흐름, Spec/Task/Handover 형식
 - [roles.md](./docs/agent-rules/roles.md): Spec, Task, Implementation, Review 및 확장 역할
 - [context-budget.md](./docs/agent-rules/context-budget.md): subagent에 필요한 최소 규칙과 작업 카드만 전달하는 규칙
+- [subagent-execution.md](./docs/agent-rules/subagent-execution.md): subagent 호출, 중단, 출력, 통합 절차
 - [workspaces.md](./docs/agent-rules/workspaces.md): active workspace, profile, allowed scope, forbidden path 규칙
 - [review.md](./docs/agent-rules/review.md): 리뷰 입력 조건과 출력 형식
 - [security-review.md](./docs/agent-rules/security-review.md): 보안 트리거, 체크리스트, 보안 리뷰 형식
@@ -58,6 +59,7 @@ Workspace profile: workspaces/<app-slug>/.agent/profile.md
 다른 `workspaces/*` 앱, `.git/**`, 실제 `.env` 파일, credentials, generated secrets는 건드리지 않습니다.
 
 subagent에는 전체 문서를 모두 붙여 넣지 않고, 가능한 한 [SUBAGENT_TASK_CARD.template.md](./docs/templates/SUBAGENT_TASK_CARD.template.md)를 사용합니다.
+subagent를 호출하거나 결과를 통합할 때는 [subagent-execution.md](./docs/agent-rules/subagent-execution.md)를 따릅니다.
 앱별 실행 컨텍스트는 [WORKSPACE_PROFILE.template.md](./docs/templates/WORKSPACE_PROFILE.template.md)를 기준으로 작성합니다.
 
 구현 subagent는 기본적으로 Git 명령을 실행하지 않습니다.
