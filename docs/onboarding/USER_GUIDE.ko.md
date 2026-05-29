@@ -129,6 +129,22 @@ docs/templates/SUBAGENT_TASK_CARD.template.md
 
 ### Subagent 호출 방식
 
+subagent는 기본 실행 방식이 아닙니다.
+기본은 메인 Codex가 직접 처리하고, subagent는 병렬화나 역할 분리의 이득이 분명할 때만 호출합니다.
+
+Tier별 기본 기준은 다음과 같습니다.
+
+| Tier | subagent 호출 기준 |
+| --- | --- |
+| Tier 0 | 호출하지 않음. 질문, 설명, 읽기 전용 조사는 메인 Codex가 처리합니다. |
+| Tier 1 | 기본적으로 호출하지 않음. 작은 수정은 메인 Codex가 처리합니다. |
+| Tier 2 | 조건부 호출. 독립적인 조사, 검증, 작은 sidecar 작업에만 사용합니다. |
+| Tier 3 | 조건부 호출. 보안 리뷰, 검증, 분리된 review 작업에 사용할 수 있습니다. |
+| Tier 4 | 주 사용 구간. 병렬 multi-agent, domain-owned Subtask에 사용합니다. |
+
+Superpowers `spawn_agent`를 실제로 호출하려면 사용자가 subagent, delegation, parallel agent work를 명시적으로 요청해야 합니다.
+Tier가 높다는 이유만으로 자동 호출하지 않습니다.
+
 subagent는 스스로 작업 범위나 Git 동작, 검증 방식을 정하지 않습니다.
 메인 Codex 세션이 orchestrator 역할을 하며, 필요한 범위를 정리한 task card를 만들어 subagent에게 전달합니다.
 
@@ -141,6 +157,7 @@ subagent를 호출하기 전에는 다음이 정해져 있어야 합니다.
 - 검증 명령 또는 `Needs Confirmation`
 - 중단 조건
 - Git 작업 여부
+- 메인 Codex가 동시에 진행할 non-overlapping local task
 
 구현 subagent는 Git 명령을 실행하지 않습니다.
 작업 범위가 애매하거나 다른 workspace를 건드려야 한다면, 추측해서 진행하지 않고 `Needs Confirmation`으로 멈춰야 합니다.
@@ -258,6 +275,12 @@ docs/agent-rules/subagent-execution.md
 docs/templates/TIER4_START_CHECKLIST.md
 docs/coordination/PARALLEL_WORKFLOW.md
 docs/coordination/AGENT_SYNC_CHECKLIST.md
+```
+
+예시 흐름:
+
+```text
+docs/onboarding/examples/LOGIN_SUBAGENT_FLOW.ko.md
 ```
 
 보안 민감 작업:
