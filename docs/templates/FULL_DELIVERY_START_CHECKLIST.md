@@ -1,6 +1,6 @@
-# Tier 4 Parallel Start Checklist
+# Full Delivery Parallel Start Checklist
 
-Use this checklist before starting any Tier 4 parallel multi-agent work.
+Use this checklist before starting any Full Delivery parallel multi-agent work.
 Parallel implementation may begin only after every required gate is answered and any blocking `Needs Confirmation` item is resolved.
 
 ## Metadata
@@ -21,18 +21,18 @@ Parallel implementation may begin only after every required gate is answered and
   - `docs/agent-rules/roles.md`
   - `docs/coordination/PARALLEL_WORKFLOW.md`
 
-## 1) Tier 4 Fit
+## 1) Full Delivery Fit
 
-- [ ] The work is large enough, cross-domain enough, or parallel enough to justify Tier 4.
-- [ ] A lower Tier would create coordination, contract, security, or review risk.
+- [ ] The user explicitly requested Full Delivery Workflow, end-to-end delivery, or parallel multi-agent delivery.
+- [ ] The work is large enough, cross-domain enough, or parallel enough to justify formal coordination.
 - [ ] The expected work can be split into independently owned Subtasks.
 - [ ] The user request and acceptance target are understood.
 
 Decision:
 
-- Tier selected: Tier 4
+- Workflow mode: Full Delivery Workflow
 - Reason:
-- Not Tier 0/1/2/3 because:
+- Why Default Workflow is not enough:
 
 ## 2) Workspace Activation Gate
 
@@ -61,7 +61,7 @@ Workspace status:
 ## 3) Context Budget Gate
 
 - [ ] User explicitly requested subagents, delegation, or parallel agent work before any Superpowers `spawn_agent` call.
-- [ ] Tier 0/1 automatic delegation is not being used.
+- [ ] Default Workflow automatic delegation is not being used.
 - [ ] Orchestrator has selected the immediate local critical-path task.
 - [ ] Delegated subtasks are non-overlapping and can run in parallel.
 - [ ] Subagents will receive compact task cards instead of full planning packets.
@@ -196,7 +196,7 @@ Sync points:
 
 Parallel implementation may start only if there are no blocking `Needs Confirmation` items.
 
-- [ ] Tier 4 fit confirmed.
+- [ ] Full Delivery fit confirmed.
 - [ ] Workspace activation confirmed or marked not applicable.
 - [ ] Context budget gate confirmed.
 - [ ] Relevant contracts approved.
