@@ -2,6 +2,9 @@
 
 This document defines the **backend API surface** as a shared contract for parallel work.
 
+Scope note: this file is a shell-level reference or simulation contract.
+For app-scoped work, freeze task-specific API contracts under `workspaces/<app-slug>/.agent/contracts/` unless the Task explicitly declares this file as the active contract location.
+
 ## Status
 
 - Owner: Integration Coordinator Agent
