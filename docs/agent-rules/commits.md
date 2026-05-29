@@ -2,6 +2,7 @@
 
 Use this file before creating commits.
 Use the `commit-workflow` skill for staging, splitting, writing commit messages, rewriting commits, or creating commits.
+The repo-managed source lives at `docs/skills/commit-workflow/SKILL.md`; install it globally with `scripts/install-commit-workflow.ps1` when needed.
 
 Agents must follow the official Conventional Commits 1.0.0 specification:
 
