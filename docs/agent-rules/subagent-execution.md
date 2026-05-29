@@ -155,6 +155,7 @@ Git Steward Agent:
 - shell/app repo distinction
 - commit rules path
 - staging or PR intent
+- workspace profile Git Pointer for app-scoped work
 
 ## 6. Stop Conditions
 
@@ -209,6 +210,8 @@ After a subagent returns, the orchestrator must:
 8. Update contracts, task docs, or handover notes if required.
 9. Record unresolved `Needs Confirmation` items.
 10. Avoid commit, branch, push, or PR work unless acting through Git Steward rules.
+
+When Git Steward work is required, load `docs/agent-rules/commits.md`, use `commit-workflow`, and classify shell/app changes before staging.
 
 For Tier 4 work, run the relevant sync checklist before final handover:
 
