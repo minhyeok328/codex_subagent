@@ -1,19 +1,22 @@
-# secret_agents 사용 설명서
+# codex_subagent 사용 설명서
 
-이 문서는 `secret_agents`를 처음 쓰는 사용자가 전체 구조를 빠르게 이해하기 위한 안내서입니다.
+이 문서는 `codex_subagent`를 처음 쓰는 사용자가 전체 구조를 빠르게 이해하기 위한 안내서입니다.
 세부 운영 규칙보다 쉽게 읽히도록 작성했습니다.
 
 ## 이 시스템은 무엇인가요?
 
-`secret_agents`는 Codex가 사용자 Git 프로젝트를 안전하게 작업하도록 돕는 운영 셸입니다.
+`codex_subagent`는 Codex와 subagent가 사용자 Git 프로젝트를 안전하게 작업하도록 돕는 Codex orchestration subagent system입니다.
 
-즉, `secret_agents` 자체가 제품 앱일 필요는 없습니다.
-대신 사용자의 실제 앱을 `workspaces/` 아래에 넣고, `secret_agents`는 그 앱을 어떻게 읽고, 어디까지 수정하고, 어떤 기준으로 검증할지 정합니다.
+즉, `codex_subagent` 자체가 제품 앱일 필요는 없습니다.
+대신 사용자의 실제 앱을 `workspaces/` 아래에 넣고, `codex_subagent`는 그 앱을 어떻게 읽고, 어디까지 수정하고, 어떤 기준으로 검증할지 정합니다.
+
+1차 배포 기준으로는 완성된 제품 플랫폼이 아니라 가장 기본적인 운영 셸입니다.
+앱별 profile, contract, task card, review 절차, security review, Codex skill을 프로젝트 필요에 맞게 추가하면서 확장할 수 있습니다.
 
 기본 구조는 다음과 같습니다.
 
 ```text
-secret_agents/                  # 운영 셸
+codex_subagent/                 # 운영 셸
 +-- AGENTS.md                    # 항상 적용되는 운영 규칙
 +-- docs/                        # agent 규칙, 템플릿, 온보딩 문서
 +-- scripts/                     # 문서 검증 등 보조 스크립트
@@ -21,7 +24,7 @@ secret_agents/                  # 운영 셸
     +-- my-app/                  # 실제 사용자 Git 프로젝트
 ```
 
-간단히 말하면, `secret_agents`는 작업 운영 환경이고 `workspaces/my-app`은 실제로 고칠 앱입니다.
+간단히 말하면, `codex_subagent`는 작업 운영 환경이고 `workspaces/my-app`은 실제로 고칠 앱입니다.
 
 ## 핵심 개념
 
@@ -59,7 +62,7 @@ Spec, 설계, 구현 계획 같은 계획 산출물만 요청한 경우에는 Fo
 
 ## 처음 사용할 때의 흐름
 
-1. `secret_agents`를 프로젝트 루트로 엽니다.
+1. `codex_subagent`를 프로젝트 루트로 엽니다.
 2. 실제 제품 앱을 `workspaces/<app-slug>` 아래에 clone하거나 복사합니다.
 3. `docs/templates/WORKSPACE_PROFILE.template.md`를 참고해 `workspaces/<app-slug>/.agent/profile.md`를 만듭니다.
 4. 앱 작업을 시작할 때 active workspace를 선언합니다.
@@ -111,6 +114,18 @@ docs/agent-rules/
 
 agent는 모든 규칙을 한 번에 읽지 않고, 현재 작업에 필요한 규칙만 읽습니다.
 
+### 주요 템플릿
+
+반복되는 운영 문서는 아래 템플릿에서 시작합니다.
+
+| 템플릿 | 용도 |
+| --- | --- |
+| `docs/templates/WORKSPACE_PROFILE.template.md` | 앱별 실행 profile 작성 |
+| `docs/templates/SUBAGENT_TASK_CARD.template.md` | subagent에게 넘길 작은 작업 카드 |
+| `docs/templates/FULL_DELIVERY_START_CHECKLIST.md` | Full Delivery 병렬 multi-agent 작업 시작 전 gate |
+| `docs/templates/CROSS_AGENT_HANDOVER_TEMPLATE.md` | agent 간 handover |
+| `docs/templates/INTEGRATION_REVIEW_TEMPLATE.md` | 통합 리뷰 결과 정리 |
+
 ## Workspace Profile
 
 각 앱에는 앱 전용 실행 프로필을 둘 수 있습니다.
@@ -161,7 +176,7 @@ Git Steward는 commit 전에 먼저 대상을 분류합니다.
 Git target: shell | active app | none | Needs Confirmation
 ```
 
-- `shell`: `AGENTS.md`, `docs/**`, 템플릿, 온보딩 같은 `secret_agents` 운영 문서
+- `shell`: `AGENTS.md`, `docs/**`, 템플릿, 온보딩 같은 `codex_subagent` 운영 문서
 - `active app`: `workspaces/<app-slug>/**` 안의 실제 앱 변경
 - `none`: commit하지 않아야 하는 변경
 - `Needs Confirmation`: 대상이 애매해 사용자 확인이 필요한 변경
@@ -311,3 +326,11 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\check-docs.ps1
 ```
 
 이 명령은 필수 문서, 핵심 참조, task card 필드, Git Steward 규칙, Markdown trailing whitespace를 확인합니다.
+
+commit-workflow skill 설치:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\install-commit-workflow.ps1
+```
+
+이 명령은 repo 안의 [commit-workflow skill 원본](../skills/commit-workflow/SKILL.md)을 전역 Codex skill 위치로 설치할 때 사용합니다.
