@@ -15,6 +15,7 @@ Parallel implementation may begin only after every required gate is answered and
 - Related docs:
   - `AGENTS.md`
   - `docs/agent-rules/context-budget.md`
+  - `docs/agent-rules/subagent-execution.md`
   - `docs/agent-rules/workspaces.md`
   - `docs/agent-rules/workflow.md`
   - `docs/agent-rules/roles.md`
@@ -59,6 +60,7 @@ Workspace status:
 
 - [ ] Subagents will receive compact task cards instead of full planning packets.
 - [ ] Required rule files are selected by role.
+- [ ] Subagent launch and integration rules are selected: `docs/agent-rules/subagent-execution.md`.
 - [ ] Security checklist is loaded only if a security trigger applies.
 - [ ] Commit rules are loaded only for explicit Git work.
 - [ ] Large Specs or contracts are summarized unless full detail is required.
@@ -170,6 +172,7 @@ Verification commands:
 
 - [ ] Sync checklist selected: `docs/coordination/AGENT_SYNC_CHECKLIST.md`
 - [ ] Integration review template selected: `docs/templates/INTEGRATION_REVIEW_TEMPLATE.md`
+- [ ] Orchestrator integration step selected: `docs/agent-rules/subagent-execution.md` section 8.
 - [ ] Sync points are defined before implementation starts.
 - [ ] Drift handling rule is understood: update contracts first, then adjust Subtasks.
 - [ ] Deadlock escape conditions are understood.
@@ -179,6 +182,7 @@ Sync points:
 | Sync Point | Trigger | Participants | Required Evidence |
 | --- | --- | --- | --- |
 | Contract approval | Before implementation | Integration Coordinator, Review Agent, Security Review Agent if required | Approved contract notes |
+| Subagent return check | After each subagent returns | Orchestrator, relevant reviewer if needed | Status, changed files, verification, scope check |
 | Midpoint sync | After first domain Subtask completes | Relevant domain agents, Integration Coordinator | Handover + verification status |
 | Integration review | Before final handover | Integration Coordinator, Review Agent, Security Review Agent if required | Integration review output |
 
@@ -206,6 +210,7 @@ Decision:
 ## 11) Subagent Launch Notes
 
 Use `docs/templates/SUBAGENT_TASK_CARD.template.md` for compact implementation launches and `docs/templates/SUBAGENT_PROMPTS.md` when full role prompts are required.
+Use `docs/agent-rules/subagent-execution.md` for launch gates, stop conditions, required output, and orchestrator integration.
 
 Launch order:
 

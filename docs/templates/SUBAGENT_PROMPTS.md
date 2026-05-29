@@ -8,6 +8,7 @@ Before using any prompt:
 - Confirm the active task is Tier 4.
 - Read root `AGENTS.md`.
 - Load `docs/agent-rules/context-budget.md` and give each subagent only the context needed for its role.
+- Load `docs/agent-rules/subagent-execution.md` before launching or integrating subagent work.
 - If implementation targets `workspaces/<app-slug>`, load `docs/agent-rules/workspaces.md` and declare the active workspace.
 - Read `docs/agent-rules/workflow.md` and `docs/agent-rules/roles.md`.
 - Read `docs/coordination/PARALLEL_WORKFLOW.md`.
