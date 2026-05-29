@@ -1,10 +1,10 @@
 # Workspace Activation Rules
 
-Use this file when `secret_agents` is acting as the governance shell for one or more user Git projects under `workspaces/`.
+Use this file when `codex_subagent` is acting as the governance shell for one or more user Git projects under `workspaces/`.
 
 ## Model
 
-`secret_agents` is the governance shell.
+`codex_subagent` is the governance shell.
 Product implementation happens inside exactly one active app workspace for a Task.
 
 Active workspace format:
