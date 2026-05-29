@@ -52,25 +52,53 @@ Forbidden:
 
 If a task appears to require access outside the workspace, stop and ask for explicit user approval.
 
-## Task Tiers
+## Workflow Modes
 
-Use the lightest workflow that preserves safety.
+Use the lightest safe workflow by default.
+Do not use numbered workflow categories for ordinary work.
 
-| Tier | Use For | Required Workflow |
-| --- | --- | --- |
-| Tier 0 | Questions, analysis, explanations, read-only code inspection | No Spec or Task document required. Answer or report findings. |
-| Tier 1 | Small, low-risk edits such as copy, docs, style, focused single-file fixes | Brief scope note, implement, verify, self-review, report. |
-| Tier 2 | Normal feature work or changes across several files | Lightweight Spec, Task/Subtask breakdown, implement one Subtask at a time, review, verify. |
-| Tier 3 | Security-sensitive, data-sensitive, auth, permissions, migrations, files, external APIs, dependencies, or configuration | Full Spec, Task/Subtask breakdown, Review Agent, Security Review Agent when triggered, explicit verification. |
-| Tier 4 | Parallel multi-agent or large cross-domain work | Contract-first workflow, domain-owned Subtasks, sync points, integration review, security review when triggered. |
+### Default Workflow
 
-When unsure, choose the higher tier.
+Use this for questions, analysis, read-only inspection, small edits, focused fixes, routine implementation slices, and other work that can be handled safely from local context.
+
+- Answer, inspect, or implement directly.
+- Keep scope narrow and avoid unrelated changes.
+- Run relevant verification before reporting completion.
+- Self-review for scope, correctness, and workspace safety.
+- Do not create Spec, Task/Subtask, Review Agent, or handover artifacts unless the user explicitly asks for Formal Planning, Full Delivery, formal tracking, or the work is already part of an existing formal workflow.
+
+### Formal Planning Workflow
+
+Use this when the user asks for a Spec, design, implementation plan, Task/Subtask breakdown, handoff, or other planning artifact without asking the agent to implement the work.
+
+- Clarify only what is needed to make the planning artifact accurate.
+- Write or update the requested planning artifact.
+- Do not implement product changes unless the user explicitly approves moving into implementation.
+- Keep verification limited to document consistency, links, and any checks relevant to the planning artifact.
+
+### Full Delivery Workflow
+
+Use the formal planning-through-development workflow only when the user explicitly asks the agent to own the work from initial planning through Spec writing and development, or when the user asks for end-to-end delivery or parallel multi-agent delivery.
+
+A request for a Spec, implementation plan, handoff, or bounded subagent/delegation by itself does not switch the task into Full Delivery Workflow.
+
+The Full Delivery Workflow may include:
+
+- initial planning and requirement clarification
+- Spec writing or update
+- Task/Subtask breakdown
+- contract-first coordination when multiple domains or agents are involved
+- implementation one Subtask at a time
+- Review Agent and Security Review Agent checks when applicable
+- explicit verification and handover
+
+If Formal Planning or Full Delivery appears necessary for safety but the user did not request it, explain why and ask before switching into it.
 
 ## On-Demand Rule Loading
 
 Load only the files needed for the current task:
 
-- Tier and workflow details: [docs/agent-rules/workflow.md](./docs/agent-rules/workflow.md)
+- Formal Planning and Full Delivery workflow details: [docs/agent-rules/workflow.md](./docs/agent-rules/workflow.md)
 - Role definitions and multi-agent ownership: [docs/agent-rules/roles.md](./docs/agent-rules/roles.md)
 - Context budget and rule-loading discipline: [docs/agent-rules/context-budget.md](./docs/agent-rules/context-budget.md)
 - Subagent launch and integration protocol: [docs/agent-rules/subagent-execution.md](./docs/agent-rules/subagent-execution.md)
@@ -105,7 +133,7 @@ Implementation agents must not perform Git work unless explicitly assigned Git S
 ## Progress and Deadlock
 
 - Keep the user informed during long-running work.
-- If work continues for 4 minutes, provide a short status update with the active role, active Task/Subtask, current action, and early findings.
+- If work continues for 4 minutes, provide a short status update with the active workflow mode, active role or Subtask when applicable, current action, and early findings.
 - If there is no meaningful progress for 5 minutes, stop and provide a handover summary instead of silently retrying.
 - If the same fix/re-review loop, test failure, or implementation deadlock repeats three consecutive times, stop and ask the user for guidance.
 
@@ -113,7 +141,7 @@ Implementation agents must not perform Git work unless explicitly assigned Git S
 
 Before marking work complete:
 
-- Verify the task matches the user's request and the selected Tier workflow.
+- Verify the task matches the user's request and the selected workflow mode.
 - Confirm unrelated behavior was not changed.
 - Run relevant checks or explain why they are not applicable.
 - Report changed files, verification results, assumptions, and residual risks.
