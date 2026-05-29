@@ -123,7 +123,7 @@ For Default Workflow work that is not part of an existing numbered Task sequence
 
 ## Active Workspace Metadata
 
-When `secret_agents` is used as a shell for an app under `workspaces/`, Full Delivery app implementation must include:
+When `codex_subagent` is used as a shell for an app under `workspaces/`, Full Delivery app implementation must include:
 
 ```md
 Active workspace:
