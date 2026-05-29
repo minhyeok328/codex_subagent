@@ -73,6 +73,7 @@ Load only the files needed for the current task:
 - Tier and workflow details: [docs/agent-rules/workflow.md](./docs/agent-rules/workflow.md)
 - Role definitions and multi-agent ownership: [docs/agent-rules/roles.md](./docs/agent-rules/roles.md)
 - Context budget and rule-loading discipline: [docs/agent-rules/context-budget.md](./docs/agent-rules/context-budget.md)
+- Subagent launch and integration protocol: [docs/agent-rules/subagent-execution.md](./docs/agent-rules/subagent-execution.md)
 - Active app workspace rules: [docs/agent-rules/workspaces.md](./docs/agent-rules/workspaces.md)
 - Review formats and expectations: [docs/agent-rules/review.md](./docs/agent-rules/review.md)
 - Security checklist and security review output: [docs/agent-rules/security-review.md](./docs/agent-rules/security-review.md)
