@@ -2,6 +2,9 @@
 
 This document binds the API surface to frontend expectations so parallel work cannot diverge.
 
+Scope note: this file is a shell-level reference or simulation contract.
+For app-scoped work, freeze task-specific frontend/backend contracts under `workspaces/<app-slug>/.agent/contracts/` unless the Task explicitly declares this file as the active contract location.
+
 ## Status
 
 - Owner: Integration Coordinator Agent
