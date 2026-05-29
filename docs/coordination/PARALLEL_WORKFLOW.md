@@ -15,6 +15,10 @@ Parallel work means:
 
 Parallel implementation may start only when:
 
+- Workspace-scoped implementation declares:
+  - one active `workspaces/<app-slug>` root
+  - a workspace profile path or `Needs Confirmation`
+  - allowed write scopes and forbidden paths for every implementation agent
 - Relevant contract docs exist and are reviewed:
   - `docs/contracts/*`
 - Subtasks are decomposed so that:
@@ -39,6 +43,7 @@ Parallel implementation may start only when:
 
 ### Phase 0: Contract Draft
 
+- Confirm active workspace metadata when work targets an app under `workspaces/`.
 - Update contract(s) first.
 - Mark unknowns as **Needs Confirmation** (do not guess).
 
@@ -54,10 +59,13 @@ Parallel implementation may start only when:
 ### Phase 2: Subtask Decomposition
 
 Task Agent decomposes work so each domain agent can proceed independently.
+Each Subtask must include active workspace, owned write scope, forbidden paths, verification commands, and Git steward status when workspace-scoped.
 
 ### Phase 3: Independent Implementation
 
 - Each domain agent implements one Subtask at a time.
+- Each domain agent edits only inside the active workspace and assigned owned scope.
+- Domain implementation agents do not run Git commands or modify Git metadata.
 - If a Subtask requires changing a shared interface:
   - stop implementation
   - update contract first
