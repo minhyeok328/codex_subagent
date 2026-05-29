@@ -19,6 +19,8 @@ Parallel implementation may start only when:
   - one active `workspaces/<app-slug>` root
   - a workspace profile path or `Needs Confirmation`
   - allowed write scopes and forbidden paths for every implementation agent
+- Subagent launch rules are selected:
+  - `docs/agent-rules/subagent-execution.md`
 - Relevant contract docs exist and are reviewed:
   - `docs/contracts/*`
 - Subtasks are decomposed so that:
@@ -60,12 +62,14 @@ Parallel implementation may start only when:
 
 Task Agent decomposes work so each domain agent can proceed independently.
 Each Subtask must include active workspace, owned write scope, forbidden paths, verification commands, and Git steward status when workspace-scoped.
+The orchestrator prepares a bounded task card for each subagent before launch.
 
 ### Phase 3: Independent Implementation
 
 - Each domain agent implements one Subtask at a time.
 - Each domain agent edits only inside the active workspace and assigned owned scope.
 - Domain implementation agents do not run Git commands or modify Git metadata.
+- Domain agents return the required status and output fields from `docs/agent-rules/subagent-execution.md`.
 - If a Subtask requires changing a shared interface:
   - stop implementation
   - update contract first
@@ -75,6 +79,7 @@ Each Subtask must include active workspace, owned write scope, forbidden paths, 
 
 Integration Coordinator runs:
 
+- Subagent output scope check
 - Contract compliance check
 - Integration review template
 - Required verification commands (project-defined; otherwise Needs Confirmation)
