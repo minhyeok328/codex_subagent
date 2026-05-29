@@ -44,6 +44,7 @@ Complete this gate when implementation targets an app under `workspaces/`.
 - [ ] Other `workspaces/*` apps are out of scope.
 - [ ] Governance docs are read-only unless this task explicitly assigns policy/template changes.
 - [ ] Implementation agents will not run Git commands or modify Git metadata.
+- [ ] Git Steward will use `docs/agent-rules/commits.md` and `commit-workflow` when commit work is required.
 
 Workspace status:
 
@@ -55,6 +56,7 @@ Workspace status:
 | Allowed write roots |  |  |
 | Forbidden paths |  |  |
 | Git steward | Required before commit / Not required / Needs Confirmation |  |
+| Git target | shell / active app / none / Needs Confirmation |  |
 
 ## 3) Context Budget Gate
 
