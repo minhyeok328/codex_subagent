@@ -8,6 +8,8 @@ Use this handover when passing work across domain agents during parallel executi
 - Date/time:
 - From Agent:
 - To Agent:
+- Active workspace:
+- Workspace profile:
 - Contract references:
   - `docs/contracts/...`
 
@@ -16,6 +18,8 @@ Use this handover when passing work across domain agents during parallel executi
 - Changed files:
 - Contract changes:
   - (yes/no) If yes, list contract sections updated.
+- Scope statement:
+  - Confirm changes stayed inside the active workspace and owned write scope.
 
 ## What You Need To Know (For Receiver)
 
@@ -37,6 +41,8 @@ Use this handover when passing work across domain agents during parallel executi
 ## Next Steps (Receiver Checklist)
 
 - [ ] Re-read relevant contracts
+- [ ] Confirm active workspace and workspace profile
 - [ ] Confirm scope ownership
 - [ ] Implement only within owned files
+- [ ] Do not run Git commands unless assigned Git Steward work
 - [ ] Report back with verification results

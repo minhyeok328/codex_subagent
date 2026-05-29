@@ -10,15 +10,21 @@ Use this template when running a domain Implementation Agent Subtask.
 
 - Subtask ID / Title:
 - Approved Spec reference:
+- Active workspace:
+- Workspace profile:
 - Contract references:
   - `docs/contracts/...` (list relevant ones)
 
 ## Ownership & Scope
 
 - Owned files/folders (explicit):
+- Read-only context:
 - Explicitly out of scope:
+- Forbidden paths:
 - Contract touch? (yes/no)
   - If yes: stop and update contract first; do not implement on assumptions.
+- Git touch? no
+  - Implementation Agents must not run Git commands, commit, branch, push, or modify Git metadata.
 
 ## Acceptance Criteria
 
@@ -34,6 +40,8 @@ Use this template when running a domain Implementation Agent Subtask.
 
 - Commands to run:
   - Needs Confirmation (fill in real commands once project has scripts)
+- Run location:
+  - Active workspace unless stated otherwise.
 - Manual checks:
 
 ## Output for Review Agent (Required)
