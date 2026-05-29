@@ -10,8 +10,12 @@ Parallel implementation may begin only after every required gate is answered and
 - Integration Coordinator Agent:
 - Requested outcome:
 - Source request:
+- Active workspace:
+- Workspace profile:
 - Related docs:
   - `AGENTS.md`
+  - `docs/agent-rules/context-budget.md`
+  - `docs/agent-rules/workspaces.md`
   - `docs/agent-rules/workflow.md`
   - `docs/agent-rules/roles.md`
   - `docs/coordination/PARALLEL_WORKFLOW.md`
@@ -29,7 +33,43 @@ Decision:
 - Reason:
 - Not Tier 0/1/2/3 because:
 
-## 2) Domain Impact Map
+## 2) Workspace Activation Gate
+
+Complete this gate when implementation targets an app under `workspaces/`.
+
+- [ ] Active workspace is declared as `workspaces/<app-slug>`.
+- [ ] Workspace profile exists or is marked `Needs Confirmation`.
+- [ ] Only one active workspace is in scope for this task.
+- [ ] Other `workspaces/*` apps are out of scope.
+- [ ] Governance docs are read-only unless this task explicitly assigns policy/template changes.
+- [ ] Implementation agents will not run Git commands or modify Git metadata.
+
+Workspace status:
+
+| Field | Value | Notes |
+| --- | --- | --- |
+| Active workspace |  |  |
+| Workspace profile |  |  |
+| Contract location |  |  |
+| Allowed write roots |  |  |
+| Forbidden paths |  |  |
+| Git steward | Required before commit / Not required / Needs Confirmation |  |
+
+## 3) Context Budget Gate
+
+- [ ] Subagents will receive compact task cards instead of full planning packets.
+- [ ] Required rule files are selected by role.
+- [ ] Security checklist is loaded only if a security trigger applies.
+- [ ] Commit rules are loaded only for explicit Git work.
+- [ ] Large Specs or contracts are summarized unless full detail is required.
+
+Context notes:
+
+- Subagent card template:
+- Full docs required:
+- Summaries prepared:
+
+## 4) Domain Impact Map
 
 Mark every domain touched by the task.
 
@@ -47,7 +87,7 @@ Notes:
 - Secondary domains:
 - Out of scope:
 
-## 3) Contract Gate
+## 5) Contract Gate
 
 Parallel implementation must not begin until all relevant shared contracts are drafted, reviewed, and frozen for the active task.
 
@@ -69,7 +109,7 @@ Contract status:
 | `FRONTEND_BACKEND_CONTRACT.md` | Yes/No | Draft/Approved/Needs Confirmation |  |  |
 | `INFRA_DEPLOYMENT_CONTRACT.md` | Yes/No | Draft/Approved/Needs Confirmation |  |  |
 
-## 4) Ownership Gate
+## 6) Ownership Gate
 
 Each Subtask must have exactly one primary implementation owner.
 
@@ -86,7 +126,7 @@ Ownership map:
 | --- | --- | --- | --- | --- |
 |  |  |  |  |  |
 
-## 5) Security Trigger Gate
+## 7) Security Trigger Gate
 
 If any item is checked, load `docs/agent-rules/security-review.md` and assign Security Review Agent.
 
@@ -105,7 +145,7 @@ Security decision:
 - Reason:
 - Security checklist location:
 
-## 6) Verification Plan
+## 8) Verification Plan
 
 Define verification before implementation starts.
 
@@ -126,7 +166,7 @@ Verification commands:
 | Build |  |  | Yes/No |  |
 | Manual checks |  |  | Yes/No |  |
 
-## 7) Sync Plan
+## 9) Sync Plan
 
 - [ ] Sync checklist selected: `docs/coordination/AGENT_SYNC_CHECKLIST.md`
 - [ ] Integration review template selected: `docs/templates/INTEGRATION_REVIEW_TEMPLATE.md`
@@ -142,11 +182,13 @@ Sync points:
 | Midpoint sync | After first domain Subtask completes | Relevant domain agents, Integration Coordinator | Handover + verification status |
 | Integration review | Before final handover | Integration Coordinator, Review Agent, Security Review Agent if required | Integration review output |
 
-## 8) Start Decision
+## 10) Start Decision
 
 Parallel implementation may start only if there are no blocking `Needs Confirmation` items.
 
 - [ ] Tier 4 fit confirmed.
+- [ ] Workspace activation confirmed or marked not applicable.
+- [ ] Context budget gate confirmed.
 - [ ] Relevant contracts approved.
 - [ ] Ownership map complete.
 - [ ] Security review requirement decided.
@@ -161,9 +203,9 @@ Decision:
 - Conditions:
 - Blocking items:
 
-## 9) Subagent Launch Notes
+## 11) Subagent Launch Notes
 
-Use `docs/templates/SUBAGENT_PROMPTS.md` to launch each assigned subagent.
+Use `docs/templates/SUBAGENT_TASK_CARD.template.md` for compact implementation launches and `docs/templates/SUBAGENT_PROMPTS.md` when full role prompts are required.
 
 Launch order:
 
