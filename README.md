@@ -5,6 +5,14 @@
 
 처음 사용하는 경우 먼저 [사용 설명서](./docs/onboarding/USER_GUIDE.ko.md)를 읽어 주세요.
 
+## 빠른 시작
+
+1. 실제 앱 repo를 `workspaces/<app-slug>/` 아래에 둡니다.
+2. [사용 설명서](./docs/onboarding/USER_GUIDE.ko.md)를 읽고 active workspace를 정합니다.
+3. `docs/templates/WORKSPACE_PROFILE.template.md`를 참고해 `workspaces/<app-slug>/.agent/profile.md`를 만듭니다.
+4. Codex에게 작업을 요청할 때 `Active workspace: workspaces/<app-slug>`를 함께 적습니다.
+5. 대부분의 작업은 Default Workflow로 진행하고, 기획부터 개발까지 맡길 때만 Full Delivery Workflow를 요청합니다.
+
 ## 핵심 모델
 
 일반적인 구조는 다음과 같습니다.
@@ -27,23 +35,18 @@ Active workspace: workspaces/<app-slug>
 agent는 이 active workspace와 배정된 write scope 안에서만 구현해야 합니다.
 다른 `workspaces/*` 앱, 실제 `.env` 파일, credential, `.git/**`은 명시적 배정 없이 건드리지 않습니다.
 
-## 처음 시작하기
+## 기본 설정
 
 1. 이 저장소를 프로젝트 루트로 엽니다.
-2. [사용 설명서](./docs/onboarding/USER_GUIDE.ko.md)를 읽습니다.
-3. 실제 앱 repo를 `workspaces/<app-slug>/` 아래에 clone하거나 복사합니다.
-4. [workspaces 안내](./workspaces/README.md)를 확인합니다.
-5. `docs/templates/WORKSPACE_PROFILE.template.md`를 참고해 앱별 profile을 만듭니다.
-6. 작업 요청이나 Task 문서에 `Active workspace: workspaces/<app-slug>`를 적습니다.
-7. subagent가 필요하면 `docs/templates/SUBAGENT_TASK_CARD.template.md`로 범위를 작게 고정합니다.
-8. Git 작업은 구현 agent가 아니라 Git Steward 흐름에서 처리합니다.
+2. [workspaces 안내](./workspaces/README.md)를 확인합니다.
+3. subagent가 필요하면 `docs/templates/SUBAGENT_TASK_CARD.template.md`로 범위를 작게 고정합니다.
+4. Git 작업은 구현 agent가 아니라 Git Steward 흐름에서 처리합니다.
 
 ## 주요 문서
 
 | 문서 | 목적 |
 | --- | --- |
 | [AGENTS.md](./AGENTS.md) | 에이전트가 항상 따라야 하는 운영 원문 |
-| [AGENTS.ko.md](./AGENTS.ko.md) | 팀원용 한국어 설명 |
 | [USER_GUIDE.ko.md](./docs/onboarding/USER_GUIDE.ko.md) | 처음 사용자를 위한 단순 사용 설명서 |
 | [workflow.md](./docs/agent-rules/workflow.md) | Formal Planning, Full Delivery workflow, Spec/Task/Handover 형식 |
 | [workspaces.md](./docs/agent-rules/workspaces.md) | active workspace와 작업 경계 |
