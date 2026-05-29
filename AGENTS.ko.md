@@ -64,6 +64,7 @@ subagent를 호출하거나 결과를 통합할 때는 [subagent-execution.md](.
 
 구현 subagent는 기본적으로 Git 명령을 실행하지 않습니다.
 commit, branch, push, PR 작업은 별도 Git 역할에서 `commits.md`를 읽고 처리합니다.
+commit을 만들거나 staging, commit 분리, commit message 작성을 할 때는 `commit-workflow` skill을 사용합니다.
 
 ## 병렬 작업
 
