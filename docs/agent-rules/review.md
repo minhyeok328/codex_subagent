@@ -15,9 +15,9 @@ Before review starts, Implementation Agent should provide:
 - known limitations or assumptions
 - security-sensitive areas, if any
 
-For Tier 1 self-review, a short summary is enough.
+For Default Workflow self-review, a short summary is enough.
 
-## Tier 1 Review Format
+## Default Self-Review Format
 
 ```md
 Result: Approved | Needs Fix
@@ -29,7 +29,7 @@ Checked:
 Notes:
 ```
 
-## Tier 2 Review Format
+## Formal Review Format
 
 ```md
 Findings:
@@ -38,7 +38,7 @@ Residual Risk:
 Result: Approved | Needs Fix
 ```
 
-## Tier 3/Tier 4 Review Output Format
+## Structured Review Output Format
 
 Review field names, category values, and all explanatory content must be written in English.
 
@@ -76,7 +76,7 @@ Review Area values:
 
 ## Review Checklist
 
-- Does the implementation match the selected Tier workflow?
+- Does the implementation match the selected workflow mode?
 - Does it satisfy the user's request and acceptance criteria?
 - Are unrelated files or behaviors untouched?
 - Are edge cases and failure paths covered?

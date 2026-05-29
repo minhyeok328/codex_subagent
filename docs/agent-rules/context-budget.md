@@ -25,7 +25,7 @@ Load detailed rules only when the role or task needs them:
 
 | Situation | Load |
 | --- | --- |
-| Tier selection, planning, Task/Subtask creation | `docs/agent-rules/workflow.md` |
+| Formal Planning, Full Delivery planning, Spec writing, or Task/Subtask creation | `docs/agent-rules/workflow.md` |
 | Role assignment or multi-agent work | `docs/agent-rules/roles.md` |
 | Subagent launch or integration | `docs/agent-rules/subagent-execution.md` |
 | Active app or workspace-scoped implementation | `docs/agent-rules/workspaces.md` |
