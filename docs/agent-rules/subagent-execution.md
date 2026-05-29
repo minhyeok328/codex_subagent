@@ -11,6 +11,9 @@ If boundaries are unclear, the subagent stops and reports `Needs Confirmation` i
 This protocol defines how subagents are called and integrated.
 It keeps subagent work scoped, reviewable, and cheap enough to use deliberately.
 
+Subagents are opt-in execution resources, not the default execution path.
+The default path is for the main Codex session to handle the work locally.
+
 Use it for:
 
 - Tier 4 parallel work
@@ -20,6 +23,42 @@ Use it for:
 
 Do not use subagents just because they are available.
 If the main Codex session can safely complete a Tier 0 or simple Tier 1 task with less context, do that instead.
+
+## Tier-Based Delegation Policy
+
+Use Tier to decide whether delegation is worth the cost:
+
+| Tier | Delegation default | Rule |
+| --- | --- | --- |
+| Tier 0 | Do not delegate | Questions, explanations, and read-only orientation should stay local. |
+| Tier 1 | Do not delegate by default | Small low-risk edits should stay local unless the user explicitly asks for delegation. |
+| Tier 2 | Conditional | Delegate only clearly bounded sidecar work with explicit scope and a useful parallel benefit. |
+| Tier 3 | Conditional | Delegate separated review, security review, or verification when risk separation helps. |
+| Tier 4 | Primary delegation tier | Use subagents for approved parallel, domain-owned, non-overlapping work. |
+
+Tier alone does not authorize spawning.
+Actual Superpowers `spawn_agent` use requires the user to explicitly ask for subagents, delegation, or parallel agent work.
+If the user did not ask for delegation, the orchestrator should keep work local or ask before spawning.
+
+## Superpowers Harness Gate
+
+When the local Codex/Superpowers multi-agent harness is available, use it only after the delegation policy allows it.
+
+Available harness actions may include:
+
+- `spawn_agent`: create a bounded `explorer`, `worker`, or default subagent
+- `wait_agent`: wait only when the next critical-path step is blocked on the result
+- `send_input`: continue or redirect an existing agent
+- `close_agent`: close agents that are no longer needed
+
+Before calling `spawn_agent`, the orchestrator must:
+
+- confirm the user explicitly asked for subagents, delegation, or parallel agent work
+- choose one immediate local task to keep moving on the critical path
+- delegate only non-overlapping work that can run in parallel
+- avoid delegating urgent blocking work when doing it locally is faster or safer
+- ensure coding workers have disjoint write scopes
+- avoid duplicate agents on the same unresolved task
 
 ## 1. Orchestrator Responsibilities
 
@@ -61,6 +100,7 @@ Do not use a subagent when:
 
 A subagent may start only when:
 
+- delegation is explicitly requested or approved for this task
 - active workspace is declared or marked not applicable
 - role is selected
 - task card is filled
@@ -113,7 +153,33 @@ Summarize the relevant rule in 5-10 lines and cite the file path.
 
 The task card must not expand the root workspace boundary or weaken any rule from `AGENTS.md`.
 
-## 5. Role-Specific Inputs
+## 5. Cross-Agent Communication
+
+Subagents should not coordinate through private, untracked assumptions.
+Cross-agent information must flow through the orchestrator or Integration Coordinator by default.
+
+Allowed cross-agent communication:
+
+- status updates
+- `Needs Confirmation` items
+- contract drift reports
+- handover notes
+- verification results
+- narrow factual questions routed by the orchestrator
+
+Not allowed:
+
+- changing shared interface behavior by direct worker-to-worker agreement
+- editing another agent's owned files
+- broadening scope without an updated task card
+- treating a private worker answer as a contract update
+- bypassing Integration Coordinator for contract-impacting decisions
+
+Direct worker-to-worker communication is allowed only when the orchestrator explicitly permits it for a narrow question.
+The result must be reported back to the orchestrator.
+If the answer changes shared behavior, update the contract first and relaunch affected task cards.
+
+## 6. Role-Specific Inputs
 
 Add role-specific input to the task card.
 
@@ -157,7 +223,7 @@ Git Steward Agent:
 - staging or PR intent
 - workspace profile Git Pointer for app-scoped work
 
-## 6. Stop Conditions
+## 7. Stop Conditions
 
 A subagent must stop and report `Needs Confirmation` when:
 
@@ -174,7 +240,7 @@ A subagent must stop and report `Needs Confirmation` when:
 Stopping is the correct behavior when boundaries are unclear.
 Do not broaden scope silently.
 
-## 7. Required Output
+## 8. Required Output
 
 Every subagent must return a compact, reviewable output.
 
@@ -196,7 +262,7 @@ Review and Security Review Agents may use their role-specific formats, but they 
 If no files changed, write `Changed files: none`.
 If verification was not run, explain why and name the owner or condition needed to run it.
 
-## 8. Integration After Return
+## 9. Integration After Return
 
 After a subagent returns, the orchestrator must:
 
