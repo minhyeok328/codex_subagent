@@ -109,7 +109,7 @@ Parallel implementation must not begin until the relevant contract(s) are drafte
   - `docs/coordination/`
   - `docs/templates/`
 - Root `AGENTS.md` is updated to describe the new roles and contract-driven parallel workflow **without weakening** existing rules.
-- `AGENTS.ko.md` is updated in the same change to remain synchronized.
+- `docs/onboarding/USER_GUIDE.ko.md` is updated when Korean onboarding guidance is affected.
 - Each new role has a clear ownership boundary and escalation rules.
 - All new docs include "Needs Confirmation" markers for unknowns instead of making assumptions.
 
@@ -124,4 +124,4 @@ Parallel implementation must not begin until the relevant contract(s) are drafte
 - Ensure contracts are docs-only and contain no credentials.
 - Grep for placeholder markers:
   - `Needs Confirmation`
-- Ensure `AGENTS.md` and `AGENTS.ko.md` remain synchronized after edits.
+- Ensure `AGENTS.md` and `docs/onboarding/USER_GUIDE.ko.md` remain directionally aligned after edits.
