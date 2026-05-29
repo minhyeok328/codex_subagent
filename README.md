@@ -45,11 +45,12 @@ agent는 이 active workspace와 배정된 write scope 안에서만 구현해야
 | [AGENTS.md](./AGENTS.md) | 에이전트가 항상 따라야 하는 운영 원문 |
 | [AGENTS.ko.md](./AGENTS.ko.md) | 팀원용 한국어 설명 |
 | [USER_GUIDE.ko.md](./docs/onboarding/USER_GUIDE.ko.md) | 처음 사용자를 위한 단순 사용 설명서 |
-| [workflow.md](./docs/agent-rules/workflow.md) | Tier 0-4 작업 흐름 |
+| [workflow.md](./docs/agent-rules/workflow.md) | Formal Planning, Full Delivery workflow, Spec/Task/Handover 형식 |
 | [workspaces.md](./docs/agent-rules/workspaces.md) | active workspace와 작업 경계 |
 | [context-budget.md](./docs/agent-rules/context-budget.md) | subagent context를 작게 유지하는 규칙 |
 | [subagent-execution.md](./docs/agent-rules/subagent-execution.md) | subagent 호출, 중단, 출력, 통합 절차 |
 | [commits.md](./docs/agent-rules/commits.md) | Git Steward와 commit-workflow 규칙 |
+| [commit-workflow skill](./docs/skills/commit-workflow/SKILL.md) | 전역 skill로 설치할 수 있는 commit workflow 원본 |
 
 ## 주요 템플릿
 
@@ -57,7 +58,7 @@ agent는 이 active workspace와 배정된 write scope 안에서만 구현해야
 | --- | --- |
 | [WORKSPACE_PROFILE.template.md](./docs/templates/WORKSPACE_PROFILE.template.md) | 앱별 실행 profile 작성 |
 | [SUBAGENT_TASK_CARD.template.md](./docs/templates/SUBAGENT_TASK_CARD.template.md) | subagent에게 넘길 작은 작업 카드 |
-| [TIER4_START_CHECKLIST.md](./docs/templates/TIER4_START_CHECKLIST.md) | 병렬 multi-agent 작업 시작 전 gate |
+| [FULL_DELIVERY_START_CHECKLIST.md](./docs/templates/FULL_DELIVERY_START_CHECKLIST.md) | Full Delivery 병렬 multi-agent 작업 시작 전 gate |
 | [CROSS_AGENT_HANDOVER_TEMPLATE.md](./docs/templates/CROSS_AGENT_HANDOVER_TEMPLATE.md) | agent 간 handover |
 
 ## 문서 검증
@@ -70,13 +71,22 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\check-docs.ps1
 
 이 검증은 필수 문서, 핵심 참조, task card 필드, Git Steward 규칙, Markdown trailing whitespace를 확인합니다.
 
+## Skill 설치
+
+`commit-workflow` 전역 skill은 repo 안의 원본을 기준으로 설치합니다.
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\install-commit-workflow.ps1
+```
+
 ## 운영 원칙 요약
 
-- 작업에는 가장 가벼우면서도 안전한 Tier를 선택합니다.
-- Tier 2 이상 앱 구현 작업은 active workspace와 검증 명령을 명시합니다.
-- subagent는 기본 실행 경로가 아니며, Tier 0/1 작업에는 보통 호출하지 않습니다.
-- Superpowers `spawn_agent`는 사용자가 subagent, delegation, parallel agent work를 명시적으로 요청했을 때만 사용합니다.
+- 일반 작업은 Default Workflow로 가볍게 처리합니다.
+- Spec, 설계, 구현 계획만 요청한 작업은 Formal Planning Workflow로 처리합니다.
+- 처음 기획부터 Spec 작성과 개발까지 맡기는 작업에는 Full Delivery Workflow를 사용합니다.
+- Full Delivery 앱 구현 작업은 active workspace와 검증 명령을 명시합니다.
+- subagent와 Superpowers `spawn_agent`는 기본 실행 경로가 아니며, 사용자가 subagent, delegation, 또는 parallel agent work를 명시적으로 요청했을 때만 사용합니다.
 - subagent는 스스로 workspace, write scope, Git 동작, 검증 방식을 정하지 않습니다.
 - 구현 subagent는 Git 명령을 실행하지 않습니다.
-- Git 작업은 `commit-workflow` skill과 Git Steward 규칙을 사용합니다.
+- Git 작업은 [commit-workflow skill](./docs/skills/commit-workflow/SKILL.md)과 Git Steward 규칙을 사용합니다.
 - 보안, auth, DB, 파일, 외부 API, dependency, config 작업은 Security Review Agent 조건을 확인합니다.
