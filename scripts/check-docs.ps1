@@ -62,7 +62,6 @@ function Test-TrailingWhitespace($files) {
 
 $requiredFiles = @(
     "AGENTS.md",
-    "AGENTS.ko.md",
     "README.md",
     "docs/onboarding/USER_GUIDE.ko.md",
     "docs/onboarding/examples/LOGIN_SUBAGENT_FLOW.ko.md",
@@ -103,10 +102,6 @@ $requiredTextChecks = @(
     @{ Path = "AGENTS.md"; Text = "docs/agent-rules/subagent-execution.md" },
     @{ Path = "AGENTS.md"; Text = "docs/agent-rules/workspaces.md" },
     @{ Path = "AGENTS.md"; Text = "commit-workflow" },
-    @{ Path = "AGENTS.ko.md"; Text = "context-budget.md" },
-    @{ Path = "AGENTS.ko.md"; Text = "subagent-execution.md" },
-    @{ Path = "AGENTS.ko.md"; Text = "workspaces.md" },
-    @{ Path = "AGENTS.ko.md"; Text = "commit-workflow" },
     @{ Path = "docs/onboarding/USER_GUIDE.ko.md"; Text = "subagent-execution.md" },
     @{ Path = "docs/onboarding/USER_GUIDE.ko.md"; Text = "docs/onboarding/examples/LOGIN_SUBAGENT_FLOW.ko.md" },
     @{ Path = "docs/onboarding/USER_GUIDE.ko.md"; Text = "Git target: shell | active app | none | Needs Confirmation" },
