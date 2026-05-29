@@ -1,73 +1,64 @@
 # Workflow Rules
 
-Use this file when planning, implementing, decomposing, or handing off work.
+Use this file only when the user asks for Formal Planning Workflow, Full Delivery Workflow, Spec or Task/Subtask creation, handoff, parallel multi-agent work, or an existing numbered Task sequence.
 
-## Tier Selection
+Ordinary questions, analysis, small edits, focused fixes, and routine implementation slices should stay in the Default Workflow from `AGENTS.md`.
+Bounded subagent or delegation requests can stay in Default Workflow unless they also require formal planning or parallel multi-agent delivery.
 
-Choose the lightest Tier that preserves safety:
+## Workflow Selection
 
-- Tier 0: read-only analysis, explanations, code orientation, or direct answers.
-- Tier 1: small low-risk edits with narrow scope.
-- Tier 2: normal feature work or several-file changes.
-- Tier 3: security-sensitive or data-sensitive changes.
-- Tier 4: parallel multi-agent or large cross-domain work.
+Default Workflow is the normal path.
+It does not require Spec, Task/Subtask, Review Agent, or handover artifacts unless the user explicitly asks for them.
 
-When unsure, choose the higher Tier.
+Full Delivery Workflow is opt-in.
+Use it when the user explicitly asks the agent to own the work from initial planning through Spec writing and development, or when the user asks for end-to-end delivery or parallel multi-agent delivery.
 
-## Tier 0 Workflow
+Formal Planning Workflow is also opt-in.
+Use it when the user asks for a Spec, design, implementation plan, Task/Subtask breakdown, handoff, or other planning artifact without asking the agent to implement the work.
 
-1. Inspect only the context needed to answer.
-2. Do not write implementation code.
-3. Report findings, assumptions, and any next step.
+A request for a Spec, implementation plan, handoff, or bounded subagent/delegation by itself does not switch the task into Full Delivery Workflow.
 
-No Spec, Task document, Review Agent, or handover artifact is required.
+If Formal Planning or Full Delivery appears necessary for safety but the user did not request it, explain why and ask before switching into it.
 
-## Tier 1 Workflow
+## Default Workflow
 
-1. State brief scope and verification approach.
-2. Implement the focused change.
-3. Run relevant verification.
-4. Self-review for scope, correctness, and workspace safety.
-5. Report changed files and verification results.
+1. Inspect only the context needed to answer or implement safely.
+2. Answer, implement, or report findings directly.
+3. Keep edits focused on the approved request.
+4. Run relevant verification.
+5. Self-review for scope, correctness, and workspace safety.
+6. Report changed files, verification results, assumptions, and residual risks.
 
-Use Tier 2 instead if the change expands beyond a small, focused edit.
+No formal Spec, Task document, Review Agent, or handover artifact is required.
 
-## Tier 2 Workflow
+## Formal Planning Workflow
 
-1. Write or update a lightweight Spec before implementation.
-2. Break work into feature-level Tasks and Subtasks when useful.
-3. Implement one Subtask at a time.
-4. Review each completed Subtask before moving to the next one.
-5. Fix review issues and re-review.
-6. Run relevant verification.
-7. Report completion and residual risks.
+1. Clarify only what is needed to make the requested planning artifact accurate.
+2. Inspect relevant project context.
+3. Write or update the requested Spec, plan, Task/Subtask breakdown, or handoff.
+4. Check the artifact for scope, contradictions, missing acceptance criteria, and verification gaps.
+5. Verify links, paths, and document consistency when applicable.
+6. Report the artifact path, assumptions, and any decisions that require user approval before implementation.
 
-Lightweight Spec format:
+Do not implement product changes unless the user explicitly approves moving into implementation.
 
-```md
-## Summary
-## Scope
-## Acceptance Criteria
-## Affected Files
-## Verification
-```
+## Full Delivery Workflow
 
-## Tier 3 Workflow
+1. Clarify goals, non-goals, constraints, acceptance criteria, and verification.
+2. Write or update a Spec before implementation.
+3. Review the Spec for scope, clarity, contradictions, missing requirements, and security concerns.
+4. Break the work into Tasks and Subtasks when useful.
+5. Confirm active workspace metadata for app-scoped implementation.
+6. Implement one Subtask at a time.
+7. Review each completed Subtask before moving to the next one.
+8. Run Security Review Agent checks when a security trigger applies.
+9. Fix issues and re-review when needed.
+10. Run explicit verification.
+11. Produce a concise completion report or handover when requested or when the work is part of an existing formal sequence.
 
-Use Tier 3 for auth, permissions, user input, files, external APIs, dependencies, configuration, database changes, data storage, logging, or secrets.
+## Spec Format
 
-1. Write a full Spec.
-2. Review the Spec for scope, clarity, missing requirements, contradictions, and security concerns.
-3. Break the Spec into feature-level Tasks.
-4. Break large Tasks into smaller Subtasks.
-5. Implement one Subtask at a time.
-6. Run Review Agent checks.
-7. Run Security Review Agent checks when triggered.
-8. Fix issues and re-review.
-9. Run explicit verification.
-10. Report completion and anything requiring user confirmation.
-
-Full Spec format:
+Use this format when a Spec is needed:
 
 ```md
 ## Summary
@@ -83,22 +74,7 @@ Full Spec format:
 ## Security Review
 ```
 
-## Tier 4 Workflow
-
-Use Tier 4 for parallel multi-agent or large cross-domain work.
-
-1. Integration Coordinator drafts or updates relevant contracts under `docs/contracts/`.
-2. Contracts are reviewed before implementation begins.
-3. Task Agent decomposes work into domain-owned Subtasks.
-4. The orchestrator prepares bounded subagent task cards using `docs/agent-rules/subagent-execution.md`.
-5. Domain agents implement only inside their owned scope.
-6. The orchestrator integrates returned subagent output and checks scope, verification, and stop conditions.
-7. Integration Coordinator runs sync checks under `docs/coordination/`.
-8. Review Agent validates correctness and scope.
-9. Security Review Agent runs when triggered.
-10. Final verification and handover are produced.
-
-Parallel implementation must not begin until relevant contracts are drafted and reviewed.
+For a very small formal request, the Spec may omit sections that are not relevant, but it must still make scope, acceptance criteria, and verification explicit.
 
 ## Task Format
 
@@ -116,17 +92,17 @@ Use this format when a Task/Subtask document is needed:
 
 ## Handover Artifacts
 
-For Tier 3 or Tier 4 top-level Task completion, create:
+Create handover artifacts only when the user requested formal task tracking, when subagents or parallel work need durable coordination, or when the work is part of an existing numbered Task sequence.
+
+Default paths for numbered formal work:
 
 - `docs/reports/TASK[number]_COMPLETION.md`
 - `docs/specs/TASK[next-number]_SUBTASKS.md`
 
-For Tier 1 and Tier 2, create these artifacts only when the user requested formal task tracking or when the work is part of an existing numbered Task sequence.
-
 Completion report should include:
 
 - completion timestamp
-- responsible agent
+- responsible agent or role
 - Spec alignment checklist
 - changed files and implementation summary
 - test and verification results
@@ -143,11 +119,11 @@ Next-task instruction sheet should include:
 
 When starting from an existing numbered Task, read the relevant `docs/specs/TASK[number]_SUBTASKS.md` first and summarize the first Subtask's purpose and target files to the user.
 
-For Tier 1 and Tier 2 work that is not part of an existing numbered Task sequence, a short scope note is sufficient.
+For Default Workflow work that is not part of an existing numbered Task sequence, a short scope note is sufficient.
 
 ## Active Workspace Metadata
 
-When `secret_agents` is used as a shell for an app under `workspaces/`, Tier 2 or higher implementation work must include:
+When `secret_agents` is used as a shell for an app under `workspaces/`, Full Delivery app implementation must include:
 
 ```md
 Active workspace:
@@ -160,3 +136,20 @@ Git steward:
 ```
 
 Use `docs/agent-rules/workspaces.md` for workspace activation rules, `docs/agent-rules/context-budget.md` for compact subagent context loading, and `docs/agent-rules/subagent-execution.md` for subagent launch and integration rules.
+
+## Parallel Full Delivery
+
+Use contract-first coordination for approved parallel multi-agent work.
+
+1. Integration Coordinator drafts or updates relevant contracts under `docs/contracts/` or the active app's `.agent/contracts/`.
+2. Contracts are reviewed before parallel implementation begins.
+3. Task Agent decomposes work into domain-owned Subtasks.
+4. The orchestrator prepares bounded subagent task cards using `docs/agent-rules/subagent-execution.md`.
+5. Domain agents implement only inside their owned scope.
+6. The orchestrator integrates returned subagent output and checks scope, verification, and stop conditions.
+7. Integration Coordinator runs sync checks under `docs/coordination/`.
+8. Review Agent validates correctness and scope.
+9. Security Review Agent runs when triggered.
+10. Final verification and handover are produced.
+
+Parallel implementation must not begin until relevant contracts are drafted and reviewed.
