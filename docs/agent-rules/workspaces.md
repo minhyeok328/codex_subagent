@@ -22,9 +22,8 @@ workspaces/admin-dashboard
 
 ## Activation Requirement
 
-Tier 2 or higher implementation work must declare an active workspace before product files are changed.
-
-Required Task metadata:
+Any app-scoped implementation that changes product files must have a clear active workspace before files are changed.
+For Full Delivery Workflow, record the full Task metadata:
 
 ```md
 Active workspace:
