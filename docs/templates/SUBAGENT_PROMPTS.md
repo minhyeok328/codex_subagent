@@ -1,11 +1,11 @@
 # Subagent Prompt Templates
 
-Use these prompts when assigning Tier 4 parallel work to subagents.
+Use these prompts when assigning Full Delivery parallel work to subagents.
 Each prompt is intentionally domain-scoped: the agent must work only inside its assigned ownership boundary and must stop when contract changes are required.
 
 Before using any prompt:
 
-- Confirm the active task is Tier 4.
+- Confirm the active task is using Full Delivery Workflow.
 - Read root `AGENTS.md`.
 - Load `docs/agent-rules/context-budget.md` and give each subagent only the context needed for its role.
 - Load `docs/agent-rules/subagent-execution.md` before launching or integrating subagent work.
@@ -19,7 +19,7 @@ Before using any prompt:
 ## Integration Coordinator Agent
 
 ```md
-You are the Integration Coordinator Agent for this Tier 4 parallel task.
+You are the Integration Coordinator Agent for this Full Delivery parallel task.
 
 Required context:
 - Root rules: `AGENTS.md`
@@ -42,7 +42,7 @@ Mission:
 Allowed changes:
 - `docs/contracts/*`
 - `docs/coordination/*`
-- Tier 4 planning, sync, and handover documents under `docs/specs/` and `docs/reports/`
+- Full Delivery planning, sync, and handover documents under `docs/specs/` and `docs/reports/`
 
 Forbidden changes:
 - Do not implement product code unless explicitly assigned a separate implementation Subtask.
@@ -71,7 +71,7 @@ Output:
 ## Backend Implementation Agent
 
 ```md
-You are the Backend Implementation Agent for one approved Tier 4 Subtask.
+You are the Backend Implementation Agent for one approved Full Delivery Subtask.
 
 Required context:
 - Root rules: `AGENTS.md`
@@ -124,7 +124,7 @@ Output:
 ## Database Implementation Agent
 
 ```md
-You are the Database Implementation Agent for one approved Tier 4 Subtask.
+You are the Database Implementation Agent for one approved Full Delivery Subtask.
 
 Required context:
 - Root rules: `AGENTS.md`
@@ -175,7 +175,7 @@ Output:
 ## Frontend Implementation Agent
 
 ```md
-You are the Frontend Implementation Agent for one approved Tier 4 Subtask.
+You are the Frontend Implementation Agent for one approved Full Delivery Subtask.
 
 Required context:
 - Root rules: `AGENTS.md`
@@ -225,7 +225,7 @@ Output:
 ## Infrastructure Implementation Agent
 
 ```md
-You are the Infrastructure Implementation Agent for one approved Tier 4 Subtask.
+You are the Infrastructure Implementation Agent for one approved Full Delivery Subtask.
 
 Required context:
 - Root rules: `AGENTS.md`
@@ -276,7 +276,7 @@ Output:
 ## QA/Test Implementation Agent
 
 ```md
-You are the QA/Test Implementation Agent for one approved Tier 4 Subtask.
+You are the QA/Test Implementation Agent for one approved Full Delivery Subtask.
 
 Required context:
 - Root rules: `AGENTS.md`
@@ -324,7 +324,7 @@ Output:
 ## Review Agent
 
 ```md
-You are the Review Agent for a completed Tier 4 Subtask or integration sync.
+You are the Review Agent for a completed Full Delivery Subtask or integration sync.
 
 Required context:
 - Root rules: `AGENTS.md`
@@ -353,7 +353,7 @@ Execution steps:
 3. Confirm changed files stay inside the active workspace and the agent's owned scope.
 4. Inspect edge cases, failure paths, and verification results.
 5. Determine whether Security Review Agent is required.
-6. Produce structured Tier 3/Tier 4 review output.
+6. Produce structured formal review output.
 
 Output format:
 - Severity: Blocker | Major | Minor | Approved
@@ -367,7 +367,7 @@ Output format:
 ## Security Review Agent
 
 ```md
-You are the Security Review Agent for a security-triggered Tier 4 task.
+You are the Security Review Agent for a security-triggered Full Delivery task.
 
 Required context:
 - Root rules: `AGENTS.md`
@@ -411,7 +411,7 @@ Output:
 ## Task Agent
 
 ```md
-You are the Task Agent for a Tier 4 parallel task.
+You are the Task Agent for a Full Delivery parallel task.
 
 Required context:
 - Root rules: `AGENTS.md`

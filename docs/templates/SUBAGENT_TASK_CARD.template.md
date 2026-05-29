@@ -10,7 +10,7 @@ Follow `docs/agent-rules/subagent-execution.md` for launch gates, stop condition
 - Workspace profile:
 - Task / Subtask:
 - Role:
-- Tier:
+- Workflow mode:
 
 ## Required Read Context
 
