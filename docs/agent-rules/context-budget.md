@@ -27,6 +27,7 @@ Load detailed rules only when the role or task needs them:
 | --- | --- |
 | Tier selection, planning, Task/Subtask creation | `docs/agent-rules/workflow.md` |
 | Role assignment or multi-agent work | `docs/agent-rules/roles.md` |
+| Subagent launch or integration | `docs/agent-rules/subagent-execution.md` |
 | Active app or workspace-scoped implementation | `docs/agent-rules/workspaces.md` |
 | Review-only work | `docs/agent-rules/review.md` |
 | Security-triggered work | `docs/agent-rules/security-review.md` |
@@ -39,6 +40,7 @@ If a rule file is not needed for the current role, reference it by path only or 
 
 Implementation subagents should usually receive a compact task card, not the full planning packet.
 Use `docs/templates/SUBAGENT_TASK_CARD.template.md` as the default shape.
+Use `docs/agent-rules/subagent-execution.md` for launch gates, stop conditions, and output integration.
 
 Minimum fields:
 
