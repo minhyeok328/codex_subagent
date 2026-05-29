@@ -16,27 +16,25 @@ The default path is for the main Codex session to handle the work locally.
 
 Use it for:
 
-- Tier 4 parallel work
+- approved Full Delivery parallel work
 - domain-owned implementation subtasks
 - review, security review, integration, or Git work that should be separated from implementation
 - any task where a compact task card is safer than broad shared context
 
 Do not use subagents just because they are available.
-If the main Codex session can safely complete a Tier 0 or simple Tier 1 task with less context, do that instead.
+If the main Codex session can safely complete a Default Workflow task with less context, do that instead.
 
-## Tier-Based Delegation Policy
+## Delegation Policy
 
-Use Tier to decide whether delegation is worth the cost:
+Use workflow mode and explicit user approval to decide whether delegation is worth the cost:
 
-| Tier | Delegation default | Rule |
+| Workflow | Delegation default | Rule |
 | --- | --- | --- |
-| Tier 0 | Do not delegate | Questions, explanations, and read-only orientation should stay local. |
-| Tier 1 | Do not delegate by default | Small low-risk edits should stay local unless the user explicitly asks for delegation. |
-| Tier 2 | Conditional | Delegate only clearly bounded sidecar work with explicit scope and a useful parallel benefit. |
-| Tier 3 | Conditional | Delegate separated review, security review, or verification when risk separation helps. |
-| Tier 4 | Primary delegation tier | Use subagents for approved parallel, domain-owned, non-overlapping work. |
+| Default Workflow | Do not delegate by default | Questions, explanations, small edits, and focused fixes should stay local unless the user explicitly asks for delegation. |
+| Formal Planning Workflow | Conditional | Delegate only bounded research, review, or planning checks when the user explicitly asks for delegation or a separate pass. |
+| Full Delivery Workflow | Conditional | Delegate only approved, bounded work with explicit scope and a useful review, security, integration, Git, or parallel benefit. |
 
-Tier alone does not authorize spawning.
+Workflow mode alone does not authorize spawning.
 Actual Superpowers `spawn_agent` use requires the user to explicitly ask for subagents, delegation, or parallel agent work.
 If the user did not ask for delegation, the orchestrator should keep work local or ask before spawning.
 
@@ -65,7 +63,7 @@ Before calling `spawn_agent`, the orchestrator must:
 The main Codex session is the orchestrator.
 Before launching a subagent, it must:
 
-- classify the task Tier
+- confirm whether the task is Default Workflow, Formal Planning Workflow, or Full Delivery Workflow
 - confirm the active workspace when app-scoped
 - read the workspace profile when available
 - identify allowed write scope and forbidden paths
@@ -82,7 +80,8 @@ Subagent output is evidence, not automatic approval.
 
 Use a subagent when:
 
-- Tier 4 parallel work is active
+- the user explicitly requested bounded delegation and the work can be isolated
+- Full Delivery parallel work is active
 - a domain-owned Subtask can be isolated
 - review, security review, integration, or Git work should be separated from implementation
 - context can be reduced by sending a focused task card
@@ -90,7 +89,7 @@ Use a subagent when:
 
 Do not use a subagent when:
 
-- the task is Tier 0 or a simple Tier 1 edit
+- the task is a Default Workflow item that the main session can complete safely
 - the main Codex session can safely complete the work with less context
 - the active workspace or write scope is unclear
 - the subagent would need broad repo-wide judgment without a bounded mission
@@ -112,7 +111,7 @@ A subagent may start only when:
 
 Implementation agents must not run Git commands, commit, branch, push, or modify Git metadata.
 
-For Tier 4 work, also confirm:
+For Full Delivery parallel work, also confirm:
 
 - relevant contracts are reviewed or marked `Needs Confirmation`
 - ownership overlap has been checked
@@ -279,7 +278,7 @@ After a subagent returns, the orchestrator must:
 
 When Git Steward work is required, load `docs/agent-rules/commits.md`, use `commit-workflow`, and classify shell/app changes before staging.
 
-For Tier 4 work, run the relevant sync checklist before final handover:
+For Full Delivery parallel work, run the relevant sync checklist before final handover:
 
 ```text
 docs/coordination/AGENT_SYNC_CHECKLIST.md
