@@ -16,7 +16,7 @@ workspaces/my-app에서 로그인 UI 오류 메시지를 개선해줘.
 ## 2. Orchestrator 판단
 
 ```text
-Tier: Tier 2 또는 작은 Tier 4
+Workflow mode: Default Workflow with explicit delegation approval
 Active workspace: workspaces/my-app
 Workspace profile: workspaces/my-app/.agent/profile.md
 Primary local task: profile과 로그인 관련 파일 확인
@@ -24,7 +24,7 @@ Delegation: Frontend Implementation Agent worker 1개만 조건부 사용
 Reason: UI 변경 범위가 작고 write scope가 분리 가능함
 ```
 
-Tier 0/1 작업이었다면 subagent를 호출하지 않습니다.
+사용자가 subagent를 명시하지 않았다면 이 작업은 Default Workflow로 메인 Codex가 직접 처리합니다.
 이 예시는 사용자가 subagent를 명시했고, 작업 범위가 독립적인 UI slice로 제한되므로 worker 호출이 가능합니다.
 
 ## 3. Workspace Profile 일부
@@ -79,7 +79,7 @@ Forbidden paths:
 - Workspace profile: `workspaces/my-app/.agent/profile.md`
 - Task / Subtask: Login UI error message copy and state handling
 - Role: Frontend Implementation Agent
-- Tier: Tier 2 delegated sidecar
+- Workflow mode: Default Workflow with explicit delegation approval
 
 ## Required Read Context
 
@@ -233,7 +233,7 @@ Worker
 Status: Integrated
 Scope check: passed
 Verification: login tests and lint passed
-Review required: no separate Review Agent for this small delegated Tier 2 task
+Review required: no separate Review Agent for this small delegated Default Workflow task
 Security review required: no auth/token/session behavior changed
 Git steward: required before commit
 Git target: active app
@@ -263,7 +263,7 @@ Stop if:
 이 예시는 다음 원칙과 맞습니다.
 
 - subagent는 사용자가 명시적으로 요청했기 때문에 호출 가능합니다.
-- Tier 0/1 작업이 아니며, UI slice가 독립적입니다.
+- 사용자가 delegation을 명시했고, UI slice가 독립적입니다.
 - task card가 active workspace, write scope, forbidden paths, verification, stop condition을 모두 포함합니다.
 - worker는 Git을 하지 않고, Git Steward로 handoff합니다.
 - orchestrator가 결과를 다시 검토하고 통합합니다.
