@@ -81,7 +81,6 @@ Required behavior:
 Shell Git is for governance and operating-shell changes, including:
 
 - `AGENTS.md`
-- `AGENTS.ko.md`
 - `docs/**`
 - shell templates, onboarding, agent rules, coordination docs, and simulations
 
@@ -109,7 +108,7 @@ Before staging, classify changed files:
 
 | File group | Target | Default action |
 | --- | --- | --- |
-| `AGENTS.md`, `AGENTS.ko.md`, `docs/**` | shell | Shell commit |
+| `AGENTS.md`, `docs/**` | shell | Shell commit |
 | `workspaces/<active-app>/**` | active app | App commit |
 | other `workspaces/*` | none | Block unless explicitly assigned |
 | `.env`, `.env.local`, credentials, local databases, generated secrets | none | Block |
