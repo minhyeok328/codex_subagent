@@ -2,6 +2,9 @@
 
 This document defines the **database schema and migration rules** as a shared contract.
 
+Scope note: this file is a shell-level reference or simulation contract.
+For app-scoped work, freeze task-specific DB contracts under `workspaces/<app-slug>/.agent/contracts/` unless the Task explicitly declares this file as the active contract location.
+
 ## Status
 
 - Owner: Integration Coordinator Agent + Database Implementation Agent
