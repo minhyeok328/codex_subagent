@@ -194,9 +194,24 @@ commit, branch, push, Git metadata 수정도 하지 않습니다.
 
 Git 작업은 별도의 Git Steward 역할에서 처리합니다.
 이 역할은 staging이나 commit 전에 commit 규칙을 읽어야 합니다.
+commit 생성, staging, commit 분리, commit message 작성에는 `commit-workflow` skill을 사용합니다.
 
 이렇게 분리하는 이유는 구현 범위와 commit 범위의 위험이 다르기 때문입니다.
 분리해 두면 잘못된 repo나 잘못된 workspace에 commit하는 실수를 줄일 수 있습니다.
+
+Git Steward는 commit 전에 먼저 대상을 분류합니다.
+
+```text
+Git target: shell | active app | none | Needs Confirmation
+```
+
+- `shell`: `AGENTS.md`, `docs/**`, 템플릿, 온보딩 같은 `secret_agents` 운영 문서
+- `active app`: `workspaces/<app-slug>/**` 안의 실제 앱 변경
+- `none`: commit하지 않아야 하는 변경
+- `Needs Confirmation`: 대상이 애매해 사용자 확인이 필요한 변경
+
+shell 변경과 app 변경은 기본적으로 같은 commit에 섞지 않습니다.
+다른 `workspaces/*` 앱의 변경도 같은 commit에 섞지 않습니다.
 
 ## Contract는 무엇인가요?
 
@@ -256,3 +271,11 @@ commit 작업:
 ```text
 docs/agent-rules/commits.md
 ```
+
+문서 검증:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\check-docs.ps1
+```
+
+이 명령은 필수 문서, 핵심 참조, task card 필드, Git Steward 규칙, Markdown trailing whitespace를 확인합니다.
