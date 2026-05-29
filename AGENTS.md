@@ -2,7 +2,7 @@
 
 This file defines the always-on rules for agents in this project.
 
-For teammate-facing Korean context, see [AGENTS.ko.md](./AGENTS.ko.md).
+For Korean onboarding context, see [docs/onboarding/USER_GUIDE.ko.md](./docs/onboarding/USER_GUIDE.ko.md).
 Detailed operating rules live under [docs/agent-rules/](./docs/agent-rules/). Load those files only when the current task requires them.
 
 ## Instruction Priority
@@ -30,7 +30,7 @@ These rules apply to every task, regardless of size:
 7. Never hardcode real secrets or API tokens from `.env`, `.env.local`, or other environment variable files into source code.
 8. Never commit real environment files, credentials, local databases, generated secrets, or secret-like values.
 9. Share environment structure only through `.env.example` with dummy values.
-10. Keep `AGENTS.md` and `AGENTS.ko.md` directionally aligned; `AGENTS.md` is the operational source of truth.
+10. Keep teammate-facing guidance aligned with this file; `AGENTS.md` is the operational source of truth.
 
 ## Workspace Boundary
 
@@ -51,6 +51,12 @@ Forbidden:
 - Do not add `.env`, `.env.local`, or other real environment files to Git.
 
 If a task appears to require access outside the workspace, stop and ask for explicit user approval.
+
+## Tool And Skill Access
+
+Project file work must stay inside this workspace.
+Platform-provided tools, plugin metadata, and installed skills may live outside the workspace; agents may read or invoke them when required by higher-priority system or developer instructions, or when the user explicitly asks to install or use them.
+This exception does not permit reading unrelated user files, editing non-tool files outside the workspace, or weakening the Workspace Boundary rules above.
 
 ## Workflow Modes
 
