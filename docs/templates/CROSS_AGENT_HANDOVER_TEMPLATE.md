@@ -15,6 +15,7 @@ Use this handover when passing work across domain agents during parallel executi
 
 ## What Changed
 
+- Subagent status: Completed | Blocked | Needs Confirmation
 - Changed files:
 - Contract changes:
   - (yes/no) If yes, list contract sections updated.
@@ -26,6 +27,7 @@ Use this handover when passing work across domain agents during parallel executi
 - Intended behavior:
 - Edge cases:
 - "Needs Confirmation" items:
+- Follow-up required:
 - Non-obvious constraints:
 
 ## Verification Status
