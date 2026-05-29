@@ -60,3 +60,12 @@ If a command is not configured yet, record "Not applicable yet" with reason and 
 - [ ] If any drift exists, contract is updated first
 - [ ] Subtasks are re-split if drift indicates coupling was underestimated
 - [ ] Any `Needs Confirmation` item from subagent output is resolved before final handover
+
+## 8) Cross-Agent Sync
+
+- [ ] Each worker reported status through the orchestrator or Integration Coordinator
+- [ ] `Needs Confirmation` items were routed through the orchestrator
+- [ ] Contract-impacting findings updated contracts before implementation continued
+- [ ] No private worker-to-worker assumptions remain
+- [ ] Handover notes are attached to dependent Subtasks
+- [ ] Any direct worker-to-worker question was explicitly allowed, narrow, and reported back
