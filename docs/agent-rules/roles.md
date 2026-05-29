@@ -36,9 +36,11 @@ Implements one approved Task or Subtask at a time.
 Responsibilities:
 
 - follow the approved Spec, Task, and Subtask instructions
+- follow the active workspace and assigned owned write scope when one is declared
 - follow existing project structure and coding patterns
 - keep changes scoped to the active Task/Subtask
 - avoid unrelated refactors
+- avoid Git commands, commits, branches, pushes, and Git metadata changes unless explicitly assigned as Git work
 - run relevant local checks
 - report changed files, implementation decisions, checks, and known limitations
 
@@ -99,10 +101,20 @@ Extended roles refine implementation ownership. They do not weaken core workflow
 - Ensures contracts are reviewed before parallel implementation begins.
 - Runs sync point checklists under `docs/coordination/`.
 - Resolves contract drift by updating contracts first.
+- Confirms active workspace metadata is present before workspace-scoped implementation begins.
+
+### Git Steward Agent
+
+- Owns Git boundary checks, commit planning, branch, push, and PR preparation when explicitly assigned.
+- Must load `docs/agent-rules/commits.md` before commit work.
+- Must separate shell-governance changes from app-workspace changes.
+- Must not implement product or governance changes while acting only as Git Steward Agent.
+- Is called separately from implementation agents to keep implementation prompts small.
 
 ## Parallel Work Constraints
 
 - Contract-first: cross-domain interfaces must be documented before implementation.
 - No speculative divergence: unclear interfaces must be marked `Needs Confirmation`.
 - Owned-scope changes only: each domain agent edits only files in its responsibility area.
+- Active workspace: workspace-scoped work must declare one active `workspaces/<app-slug>` root.
 - Sync before merge: integration review must verify contract compliance.
