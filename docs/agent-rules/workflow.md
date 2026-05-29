@@ -90,11 +90,13 @@ Use Tier 4 for parallel multi-agent or large cross-domain work.
 1. Integration Coordinator drafts or updates relevant contracts under `docs/contracts/`.
 2. Contracts are reviewed before implementation begins.
 3. Task Agent decomposes work into domain-owned Subtasks.
-4. Domain agents implement only inside their owned scope.
-5. Integration Coordinator runs sync checks under `docs/coordination/`.
-6. Review Agent validates correctness and scope.
-7. Security Review Agent runs when triggered.
-8. Final verification and handover are produced.
+4. The orchestrator prepares bounded subagent task cards using `docs/agent-rules/subagent-execution.md`.
+5. Domain agents implement only inside their owned scope.
+6. The orchestrator integrates returned subagent output and checks scope, verification, and stop conditions.
+7. Integration Coordinator runs sync checks under `docs/coordination/`.
+8. Review Agent validates correctness and scope.
+9. Security Review Agent runs when triggered.
+10. Final verification and handover are produced.
 
 Parallel implementation must not begin until relevant contracts are drafted and reviewed.
 
@@ -157,4 +159,4 @@ Verification:
 Git steward:
 ```
 
-Use `docs/agent-rules/workspaces.md` for workspace activation rules and `docs/agent-rules/context-budget.md` for compact subagent context loading.
+Use `docs/agent-rules/workspaces.md` for workspace activation rules, `docs/agent-rules/context-budget.md` for compact subagent context loading, and `docs/agent-rules/subagent-execution.md` for subagent launch and integration rules.
