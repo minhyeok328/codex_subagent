@@ -73,3 +73,5 @@ Stop and report if:
 - Security impact:
 - Assumptions:
 - Follow-up required:
+  - Git steward required: yes/no/Needs Confirmation
+  - Suggested commit target: shell/active app/none/Needs Confirmation
