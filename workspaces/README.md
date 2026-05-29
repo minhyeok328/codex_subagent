@@ -1,7 +1,7 @@
 # workspaces
 
 이 폴더는 실제 사용자 Git 프로젝트를 넣는 위치입니다.
-`secret_agents`는 운영 셸이고, `workspaces/<app-slug>` 아래 앱이 실제 구현 대상입니다.
+`codex_subagent`는 운영 셸이고, `workspaces/<app-slug>` 아래 앱이 실제 구현 대상입니다.
 
 ## 기본 구조
 
@@ -43,11 +43,11 @@ Active workspace: workspaces/<app-slug>
 
 일반적인 선택지는 다음과 같습니다.
 
-- 앱 repo는 `secret_agents` Git에 포함하지 않고 앱 자체 Git으로 관리
+- 앱 repo는 `codex_subagent` Git에 포함하지 않고 앱 자체 Git으로 관리
 - 앱 repo를 submodule/subtree로 연결
 - 예시용 더미 workspace만 track
 
-정책이 확정되기 전에는 실제 앱 소스나 secrets를 `secret_agents` Git에 넣지 마세요.
+정책이 확정되기 전에는 실제 앱 소스나 secrets를 `codex_subagent` Git에 넣지 마세요.
 
 ## 참고 문서
 
