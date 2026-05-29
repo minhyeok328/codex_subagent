@@ -105,10 +105,13 @@ Use `docs/templates/WORKSPACE_PROFILE.template.md` when creating a profile.
 
 Use this default split:
 
-- shell-owned templates: `docs/templates/`
-- app-frozen contracts: `workspaces/<app-slug>/.agent/contracts/`
+- shell-level reference or simulation contracts: `docs/contracts/`
+- shell-owned reusable templates: `docs/templates/`
+- app-specific frozen contracts: `workspaces/<app-slug>/.agent/contracts/`
 
 The active Task may choose a different contract location, but it must declare that path in Task metadata.
+For app-scoped work, prefer freezing task-specific contracts under the active app's `.agent/contracts/` directory.
+The Integration Coordinator owns contract consistency, not a single storage location.
 
 ## Subagent Scope
 
