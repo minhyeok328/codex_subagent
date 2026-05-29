@@ -1,0 +1,15 @@
+# Keep text normalization predictable across Windows and Unix environments.
+* text=auto
+
+# Project docs are reviewed and patched as LF text.
+*.md text eol=lf
+
+# PowerShell scripts are allowed to check out with Windows line endings.
+*.ps1 text eol=crlf
+
+# Common config and data files stay LF for stable diffs.
+*.json text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.toml text eol=lf
+*.lock text eol=lf
