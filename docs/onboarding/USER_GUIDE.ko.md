@@ -71,6 +71,7 @@ docs/agent-rules/
 | `workflow.md` | Tier 0-4 작업 흐름 |
 | `roles.md` | agent 역할별 책임 |
 | `context-budget.md` | subagent 프롬프트를 작게 유지하는 방법 |
+| `subagent-execution.md` | subagent 호출, 중단, 출력, 통합 절차 |
 | `workspaces.md` | active workspace 선언과 작업 경계 |
 | `review.md` | 리뷰 출력 형식 |
 | `security-review.md` | 보안 리뷰가 필요한 경우와 체크리스트 |
@@ -126,6 +127,34 @@ docs/templates/SUBAGENT_TASK_CARD.template.md
 
 모든 규칙 문서를 통째로 붙이는 것보다 task card를 쓰는 편이 더 가볍고 안전합니다.
 
+### Subagent 호출 방식
+
+subagent는 스스로 작업 범위나 Git 동작, 검증 방식을 정하지 않습니다.
+메인 Codex 세션이 orchestrator 역할을 하며, 필요한 범위를 정리한 task card를 만들어 subagent에게 전달합니다.
+
+subagent를 호출하기 전에는 다음이 정해져 있어야 합니다.
+
+- active workspace 또는 해당 없음
+- subagent 역할
+- 수정 가능한 경로
+- 금지 경로
+- 검증 명령 또는 `Needs Confirmation`
+- 중단 조건
+- Git 작업 여부
+
+구현 subagent는 Git 명령을 실행하지 않습니다.
+작업 범위가 애매하거나 다른 workspace를 건드려야 한다면, 추측해서 진행하지 않고 `Needs Confirmation`으로 멈춰야 합니다.
+
+subagent가 돌아오면 메인 Codex는 결과를 바로 완료로 보지 않고 다음을 확인합니다.
+
+1. 상태가 `Completed`, `Blocked`, `Needs Confirmation` 중 무엇인지 확인합니다.
+2. 변경 파일이 허용된 범위 안에 있는지 확인합니다.
+3. 금지 경로, 다른 workspace, `.git/**`, 실제 env/secret을 건드리지 않았는지 확인합니다.
+4. 완료 기준과 검증 결과를 확인합니다.
+5. 필요한 경우 Review Agent, Security Review Agent, Git Steward로 넘깁니다.
+
+자세한 실행 규칙은 [subagent-execution.md](../agent-rules/subagent-execution.md)를 따릅니다.
+
 ## 작업 Tier
 
 작업에는 가장 가벼우면서도 안전한 절차를 고릅니다.
@@ -154,8 +183,9 @@ docs/templates/SUBAGENT_TASK_CARD.template.md
 5. Tier 2 이상 작업에서는 수정 가능 경로, 금지 경로, 검증 명령을 함께 적습니다.
 6. Tier 4 작업에서는 subagent를 시작하기 전에 Tier 4 체크리스트를 사용합니다.
 7. 구현 subagent에게는 작은 task card를 전달합니다.
-8. 검증 명령은 active workspace 기준으로 실행합니다.
-9. Git 작업은 구현 작업과 분리합니다.
+8. subagent 결과가 돌아오면 메인 Codex가 scope, 검증, review 필요 여부를 확인합니다.
+9. 검증 명령은 active workspace 기준으로 실행합니다.
+10. Git 작업은 구현 작업과 분리합니다.
 
 ## Git은 어떻게 다루나요?
 
@@ -201,6 +231,7 @@ agent는 다음을 하면 안 됩니다.
 ```text
 AGENTS.md
 docs/agent-rules/workspaces.md
+docs/agent-rules/subagent-execution.md
 docs/templates/WORKSPACE_PROFILE.template.md
 docs/templates/SUBAGENT_TASK_CARD.template.md
 ```
@@ -208,6 +239,7 @@ docs/templates/SUBAGENT_TASK_CARD.template.md
 병렬 작업:
 
 ```text
+docs/agent-rules/subagent-execution.md
 docs/templates/TIER4_START_CHECKLIST.md
 docs/coordination/PARALLEL_WORKFLOW.md
 docs/coordination/AGENT_SYNC_CHECKLIST.md
