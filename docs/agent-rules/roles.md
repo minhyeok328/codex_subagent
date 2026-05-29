@@ -97,7 +97,9 @@ Extended roles refine implementation ownership. They do not weaken core workflow
 
 ### Integration Coordinator Agent
 
-- Owns shared interface contracts under `docs/contracts/`.
+- Owns shared interface contract consistency across shell reference contracts and app-frozen contracts.
+- Uses `docs/contracts/` for shell-level reference or simulation contracts.
+- Uses `workspaces/<app-slug>/.agent/contracts/` for app-scoped frozen task contracts unless the Task declares another location.
 - Ensures contracts are reviewed before parallel implementation begins.
 - Runs sync point checklists under `docs/coordination/`.
 - Resolves contract drift by updating contracts first.
